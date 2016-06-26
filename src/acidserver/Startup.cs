@@ -36,7 +36,7 @@ namespace acidserver
 
             if (env.IsDevelopment())
             {
-                builder.AddUserSecrets();
+                //builder.AddUserSecrets();
             }
 
             builder.AddEnvironmentVariables();
@@ -49,7 +49,7 @@ namespace acidserver
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.pfx"), "idsrv3test");
+            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
             var builder = services.AddIdentityServer(options =>
             {
                 options.AuthenticationOptions = new IdentityServer4.Configuration.AuthenticationOptions
@@ -66,7 +66,6 @@ namespace acidserver
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
