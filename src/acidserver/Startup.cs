@@ -15,7 +15,6 @@ using acidserver.Services;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Http;
-using acidserver.Extensions;
 using acidserver.Configuration;
 using IdentityServer4.Services;
 using IdentityModel;
