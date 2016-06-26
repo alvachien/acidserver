@@ -106,7 +106,7 @@ namespace acidserver
 
             app.UseCors(option =>
             {
-                option.WithOrigins("http://achihui.azurewebsites.net/", "http://achihapi.azurewebsites.net/")
+                option.WithOrigins("http://achihui.azurewebsites.net", "http://achihapi.azurewebsites.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();               
