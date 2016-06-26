@@ -49,6 +49,8 @@ namespace acidserver
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
             var builder = services.AddIdentityServer(options =>
             {
@@ -101,6 +103,14 @@ namespace acidserver
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseCors(option =>
+            {
+                option.WithOrigins("achihui.azurewebsites.net/", "achihapi.azurewebsites.net/")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();               
+            });
 
             app.UseStaticFiles();
 

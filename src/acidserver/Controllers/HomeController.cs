@@ -15,7 +15,7 @@ namespace acidserver.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "About AC ID Server.";
 
             return View();
         }
