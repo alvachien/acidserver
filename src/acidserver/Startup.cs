@@ -16,16 +16,19 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Http;
 using acidserver.Extensions;
+using acidserver.Configuration;
+using IdentityServer4.Services;
+using IdentityModel;
+using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace acidserver
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _environment;
-
         public Startup(IHostingEnvironment env)
         {
-            _environment = env;
+            Environment = env;
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -42,36 +45,42 @@ namespace acidserver
         }
 
         public IConfigurationRoot Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.pfx"), "idsrv3test");
             var builder = services.AddIdentityServer(options =>
             {
-                options.SigningCertificate = cert;
-            });
+                options.AuthenticationOptions = new IdentityServer4.Configuration.AuthenticationOptions
+                {
+                    PrimaryAuthenticationScheme = "Cookies"
+                };
+            })
+            .AddInMemoryClients(Clients.Get())
+            .AddInMemoryScopes(Scopes.Get())
+            .SetSigningCredentials(cert);
 
-            builder.AddCustomGrantValidator<CustomGrantValidator>();
+            services.AddTransient<IProfileService, AspIdProfileService>();
 
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
 
-            //services.AddMvc();
-            services
-                .AddMvc()
-                .AddRazorOptions(razor =>
-                {
-                    //razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());
-                });
-            //services.AddTransient<UI.Login.LoginService>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Cookies.ApplicationCookie.AuthenticationScheme = "Cookies";
+                options.ClaimsIdentity.UserIdClaimType = JwtClaimTypes.Subject;
+                options.ClaimsIdentity.UserNameClaimType = JwtClaimTypes.Name;
+                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+            services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, IdentityServerUserClaimsPrincipalFactory>();
+
+            services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -98,8 +107,6 @@ namespace acidserver
             app.UseStaticFiles();
 
             app.UseIdentity();
-
-            app.UseDeveloperExceptionPage();
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
