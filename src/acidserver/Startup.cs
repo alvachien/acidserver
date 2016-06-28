@@ -78,8 +78,8 @@ namespace acidserver
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-            services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, IdentityServerUserClaimsPrincipalFactory>();
 
+            services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, IdentityServerUserClaimsPrincipalFactory>();
             services.AddMvc();
 
             // Add application services.
@@ -116,12 +116,12 @@ namespace acidserver
 
             app.UseIdentity();
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationScheme = "Temp",
-                AutomaticAuthenticate = false,
-                AutomaticChallenge = false
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationScheme = "Temp",
+            //    AutomaticAuthenticate = false,
+            //    AutomaticChallenge = false
+            //});
 
             app.UseGoogleAuthentication(new GoogleOptions
             {

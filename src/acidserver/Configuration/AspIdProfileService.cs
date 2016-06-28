@@ -34,16 +34,14 @@ namespace acidserver.Configuration
                 {
                     claims = claims.Where(x => context.RequestedClaimTypes.Contains(x.Type)).ToArray().AsEnumerable();
                 }
+                context.IssuedClaims = claims;
 
                 var cp2 = await _userManager.GetClaimsAsync(user);
-                if (cp2.Count > 0)
+                if (cp2 != null && cp2.Count > 0)
                 {
-                    context.IssuedClaims = claims.Concat(cp2);
+                    foreach (var cp2ld in cp2)
+                        context.IssuedClaims.Append(cp2ld);
                 }
-                else
-                {
-                    context.IssuedClaims = claims;
-                }                
             }
         }
 

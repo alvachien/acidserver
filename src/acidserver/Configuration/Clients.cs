@@ -18,13 +18,15 @@ namespace acidserver.Configuration
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
-                    RedirectUris = new List<string>
+                    RedirectUris = new List<String>
                     {
                         "http://achihui.azurewebsites.net/logincallback.html"
                     },
-                    AllowedScopes = new List<string>
+                    AllowedScopes = new List<String>
                     {
-                        "openid", "profile",
+                        IdentityServer4.Constants.StandardScopes.OpenId,
+                        IdentityServer4.Constants.StandardScopes.Profile,
+                        IdentityServer4.Constants.StandardScopes.Email,
                         "api.hihapi"
                     }
                 }
