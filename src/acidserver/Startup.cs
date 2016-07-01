@@ -61,7 +61,7 @@ namespace acidserver
             })
             .AddInMemoryClients(Clients.Get())
             .AddInMemoryScopes(Scopes.Get())
-            .SetSigningCredentials(cert);
+            .SetSigningCredential(cert);
 
             services.AddTransient<IProfileService, AspIdProfileService>();
 
