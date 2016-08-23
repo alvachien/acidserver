@@ -54,10 +54,7 @@ namespace acidserver
             var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
             var builder = services.AddIdentityServer(options =>
             {
-                options.AuthenticationOptions = new IdentityServer4.Configuration.AuthenticationOptions
-                {
-                    PrimaryAuthenticationScheme = "Cookies"
-                };
+                options.AuthenticationOptions.AuthenticationScheme = "Cookies";
             })
             .AddInMemoryClients(Clients.Get())
             .AddInMemoryScopes(Scopes.Get())
@@ -106,7 +103,10 @@ namespace acidserver
 
             app.UseCors(option =>
             {
-                option.WithOrigins("http://achihui.azurewebsites.net", "http://achihapi.azurewebsites.net")
+                option.WithOrigins(
+                    "http://achihui.azurewebsites.net", 
+                    "http://achihapi.azurewebsites.net",
+                    "http://acgallery.azurewebsites.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();               

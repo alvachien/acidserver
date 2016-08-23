@@ -29,6 +29,24 @@ namespace acidserver.Configuration
                         IdentityServer4.Constants.StandardScopes.Email,
                         "api.hihapi"
                     }
+                },
+                new Client
+                {
+                    ClientId = "acgallery.app",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    RedirectUris = new List<String>
+                    {
+                        "http://acgallery.azurewebsites.net/logincallback.html"
+                    },
+                    AllowedScopes = new List<String>
+                    {
+                        IdentityServer4.Constants.StandardScopes.OpenId,
+                        IdentityServer4.Constants.StandardScopes.Profile,
+                        IdentityServer4.Constants.StandardScopes.Email,
+                        "api.hihapi"
+                    }
                 }
             };
         }
