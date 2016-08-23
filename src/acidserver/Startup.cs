@@ -104,9 +104,14 @@ namespace acidserver
             app.UseCors(option =>
             {
                 option.WithOrigins(
+#if DEBUG
+                    "http://localhost:1601"
+#else
                     "http://achihui.azurewebsites.net", 
                     "http://achihapi.azurewebsites.net",
-                    "http://acgallery.azurewebsites.net")
+                    "http://acgallery.azurewebsites.net"
+#endif
+                    )
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();               

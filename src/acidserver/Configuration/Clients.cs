@@ -38,7 +38,11 @@ namespace acidserver.Configuration
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
-                        "http://acgallery.azurewebsites.net/Home/Callback"
+#if DEBUG
+                        "http://localhost:1601/callback.html"
+#else
+                        "http://acgallery.azurewebsites.net/callback.html"
+#endif
                     },
                     AllowedScopes = new List<String>
                     {
