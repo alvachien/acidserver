@@ -14,6 +14,7 @@ namespace acidserver.Configuration
             {
                 new Client
                 {
+                    ClientName = "AC HIH App",
                     ClientId = "achihui.js",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
@@ -32,16 +33,25 @@ namespace acidserver.Configuration
                 },
                 new Client
                 {
+                    ClientName = "AC Photo Gallery",
                     ClientId = "acgallery.app",
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedGrantTypes = GrantTypes.Implicit,                    
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
 #if DEBUG
-                        "http://localhost:1601/callback.html"
+                        "http://localhost:1601"
 #else
-                        "http://acgallery.azurewebsites.net/callback.html"
+                        "http://acgallery.azurewebsites.net"
+#endif
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+#if DEBUG
+                        "http://localhost:1601"
+#else
+                        "http://acgallery.azurewebsites.net"
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -49,6 +59,7 @@ namespace acidserver.Configuration
                         IdentityServer4.Constants.StandardScopes.OpenId,
                         IdentityServer4.Constants.StandardScopes.Profile,
                         IdentityServer4.Constants.StandardScopes.Email,
+                        IdentityServer4.Constants.StandardScopes.Roles,
                         "api.hihapi"
                     }
                 }
