@@ -41,17 +41,17 @@ namespace acidserver.Configuration
                     RedirectUris = new List<String>
                     {
 #if DEBUG
-                        "http://localhost:1601"
+                        "http://localhost:1601/logincallback.html"
 #else
-                        "http://acgallery.azurewebsites.net"
+                        "http://acgallery.azurewebsites.net/logincallback.html"
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:1601"
+                        "http://localhost:1601/logoutcallback.html"
 #else
-                        "http://acgallery.azurewebsites.net"
+                        "http://acgallery.azurewebsites.net/logoutcallback.html"
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -60,6 +60,7 @@ namespace acidserver.Configuration
                         IdentityServer4.Constants.StandardScopes.Profile,
                         IdentityServer4.Constants.StandardScopes.Email,
                         IdentityServer4.Constants.StandardScopes.Roles,
+                        IdentityServer4.Constants.StandardScopes.AllClaims,
                         "api.hihapi"
                     }
                 }
