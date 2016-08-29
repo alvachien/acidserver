@@ -76,7 +76,7 @@ namespace acidserver
                 options.Cookies.ApplicationCookie.AuthenticationScheme = "Cookies";
                 options.ClaimsIdentity.UserIdClaimType = JwtClaimTypes.Subject;
                 options.ClaimsIdentity.UserNameClaimType = JwtClaimTypes.Name;
-                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;
+                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;                
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
@@ -112,10 +112,10 @@ namespace acidserver
 #if DEBUG
                     "http://localhost:1601", // AC gallery
                     "https://localhost:1601",
-                    "http://localhost:29521/", // AC HIH UI
-                    "https://localhost:29521/",
-                    "http://localhost:25688/",  // AC HIH API
-                    "https://localhost:25688/"
+                    "http://localhost:29521", // AC HIH UI
+                    "https://localhost:29521",
+                    "http://localhost:25688",  // AC HIH API
+                    "https://localhost:25688"
 #else
                     "http://achihui.azurewebsites.net", 
                     "http://achihapi.azurewebsites.net",
