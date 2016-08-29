@@ -63,8 +63,13 @@ namespace acidserver
             services.AddTransient<IProfileService, AspIdProfileService>();
 
             // Add framework services.
+#if DEBUG
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
+#else
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+#endif
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -105,11 +110,19 @@ namespace acidserver
             {
                 option.WithOrigins(
 #if DEBUG
-                    "http://localhost:1601"
+                    "http://localhost:1601", // AC gallery
+                    "https://localhost:1601",
+                    "http://localhost:29521/", // AC HIH UI
+                    "https://localhost:29521/",
+                    "http://localhost:25688/",  // AC HIH API
+                    "https://localhost:25688/"
 #else
                     "http://achihui.azurewebsites.net", 
                     "http://achihapi.azurewebsites.net",
                     "http://acgallery.azurewebsites.net"
+                    "https://achihui.azurewebsites.net", 
+                    "https://achihapi.azurewebsites.net",
+                    "https://acgallery.azurewebsites.net"
 #endif
                     )
                 .AllowAnyHeader()
