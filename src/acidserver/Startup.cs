@@ -119,7 +119,7 @@ namespace acidserver
 #else
                     "http://achihui.azurewebsites.net", 
                     "http://achihapi.azurewebsites.net",
-                    "http://acgallery.azurewebsites.net"
+                    "http://acgallery.azurewebsites.net",
                     "https://achihui.azurewebsites.net", 
                     "https://achihapi.azurewebsites.net",
                     "https://acgallery.azurewebsites.net"
