@@ -61,7 +61,8 @@ namespace acidserver.Configuration
                         IdentityServer4.Constants.StandardScopes.Email,
                         IdentityServer4.Constants.StandardScopes.Roles,
                         IdentityServer4.Constants.StandardScopes.AllClaims,
-                        "api.hihapi"
+                        "api.hihapi",
+                        "api.acgallery"
                     }
                 }
             };

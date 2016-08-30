@@ -25,6 +25,17 @@ namespace acidserver.Configuration
                         new ScopeClaim("role")
                     }
                 },
+                new Scope
+                {
+                    Name = "api.acgallery",
+                    DisplayName = "API for gallery file part",
+                    Description = "All Gallery features and data",
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>
+                    {
+                        new ScopeClaim("role")
+                    }
+                },
             };
         }
     }

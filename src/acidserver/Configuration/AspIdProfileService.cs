@@ -18,7 +18,7 @@ namespace acidserver.Configuration
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AspIdProfileService(UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,             
+            RoleManager<IdentityRole> roleManager,
             IUserClaimsPrincipalFactory<ApplicationUser> claimsFactory)
         {
             _userManager = userManager;
