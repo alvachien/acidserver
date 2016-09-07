@@ -26,7 +26,6 @@
     },
     "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.0.0",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
-    "IdentityServer4": "1.0.0-beta5",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
@@ -42,7 +41,8 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "BundlerMinifier.Core": "2.2.281"
+    "BundlerMinifier.Core": "2.2.281",
+    "IdentityServer4": "1.0.0-rc1"
   },
 
   "tools": {
@@ -71,8 +71,7 @@
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
       ]
-    },
-    "BundlerMinifier.Core": "2.0.238"
+    }
   },
 
   "frameworks": {

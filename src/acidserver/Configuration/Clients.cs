@@ -8,6 +8,18 @@ namespace acidserver.Configuration
 {
     public class Clients
     {
+        internal static class ISStandardScopes
+        {
+            public const string Address = "address";
+            public const string AllClaims = "all_claims";
+            public const string Email = "email";
+            public const string OfflineAccess = "offline_access";
+            public const string OpenId = "openid";
+            public const string Phone = "phone";
+            public const string Profile = "profile";
+            public const string Roles = "roles";
+        }
+
         public static IEnumerable<Client> Get()
         {
             return new List<Client>
@@ -25,9 +37,9 @@ namespace acidserver.Configuration
                     },
                     AllowedScopes = new List<String>
                     {
-                        IdentityServer4.Constants.StandardScopes.OpenId,
-                        IdentityServer4.Constants.StandardScopes.Profile,
-                        IdentityServer4.Constants.StandardScopes.Email,
+                        ISStandardScopes.OpenId,
+                        ISStandardScopes.Profile,
+                        ISStandardScopes.Email,
                         "api.hihapi"
                     }
                 },
@@ -56,11 +68,11 @@ namespace acidserver.Configuration
                     },
                     AllowedScopes = new List<String>
                     {
-                        IdentityServer4.Constants.StandardScopes.OpenId,
-                        IdentityServer4.Constants.StandardScopes.Profile,
-                        IdentityServer4.Constants.StandardScopes.Email,
-                        IdentityServer4.Constants.StandardScopes.Roles,
-                        IdentityServer4.Constants.StandardScopes.AllClaims,
+                        ISStandardScopes.OpenId,
+                        ISStandardScopes.Profile,
+                        ISStandardScopes.Email,
+                        ISStandardScopes.Roles,
+                        ISStandardScopes.AllClaims,
                         "api.hihapi",
                         "api.acgallery"
                     }

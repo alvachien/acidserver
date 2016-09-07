@@ -26,7 +26,7 @@ namespace acidserver.Configuration
             var id = cp.Identities.First();
             var sub = cp.FindFirst(JwtClaimTypes.Subject);
 
-            id.AddClaim(new Claim(JwtClaimTypes.IdentityProvider, sub.Issuer == ClaimsIdentity.DefaultIssuer ? Constants.LocalIdentityProvider : sub.Issuer));
+            id.AddClaim(new Claim(JwtClaimTypes.IdentityProvider, sub.Issuer == ClaimsIdentity.DefaultIssuer ? "local" : sub.Issuer));
             id.AddClaim(new Claim(JwtClaimTypes.AuthenticationTime, DateTime.UtcNow.ToEpochTime().ToString()));
 
             return cp;
