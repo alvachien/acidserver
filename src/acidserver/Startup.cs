@@ -51,16 +51,16 @@ namespace acidserver
         {
             services.AddCors();
 
-            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
-            var builder = services.AddIdentityServer(options =>
-            {
-                options.AuthenticationOptions.AuthenticationScheme = "Cookies";
-            })
-            .AddInMemoryClients(Clients.Get())
-            .AddInMemoryScopes(Scopes.Get())
-            .SetSigningCredential(cert);
+            //var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
+            //var builder = services.AddIdentityServer(options =>
+            //{
+            //    options.AuthenticationOptions.AuthenticationScheme = "Cookies";
+            //})
+            //.AddInMemoryClients(Clients.Get())
+            //.AddInMemoryScopes(Scopes.Get())
+            //.SetSigningCredential(cert);
 
-            services.AddTransient<IProfileService, AspIdProfileService>();
+            //services.AddTransient<IProfileService, AspIdProfileService>();
 
             // Add framework services.
 #if DEBUG
@@ -87,6 +87,11 @@ namespace acidserver
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddIdentityServerQuickstart()
+                .AddInMemoryScopes(Scopes.Get())
+                .AddInMemoryClients(Clients.Get())
+                .AddAspNetIdentity<ApplicationUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -42,7 +42,8 @@
       "type": "build"
     },
     "BundlerMinifier.Core": "2.2.281",
-    "IdentityServer4": "1.0.0-rc1"
+    "IdentityServer4": "1.0.0-rc1-update1",
+    "IdentityServer4.AspNetIdentity": "1.0.0-rc1"
   },
 
   "tools": {
