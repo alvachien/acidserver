@@ -20,6 +20,7 @@ using IdentityServer4.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
+using IdentityServer4;
 
 namespace acidserver
 {
@@ -88,9 +89,10 @@ namespace acidserver
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            services.AddIdentityServerQuickstart()
-                .AddInMemoryScopes(Scopes.Get())
-                .AddInMemoryClients(Clients.Get())
+            services.AddIdentityServer()
+                .AddInMemoryStores()
+                .AddInMemoryScopes(Config.GetScopes())
+                .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>();
         }
 
@@ -139,29 +141,25 @@ namespace acidserver
 
             app.UseIdentity();
 
-            //app.UseCookieAuthentication(new CookieAuthenticationOptions
-            //{
-            //    AuthenticationScheme = "Temp",
-            //    AutomaticAuthenticate = false,
-            //    AutomaticChallenge = false
-            //});
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
 
+                AutomaticAuthenticate = false,
+                AutomaticChallenge = false
+            });
             app.UseGoogleAuthentication(new GoogleOptions
             {
                 AuthenticationScheme = "Google",
-                SignInScheme = "Temp",
+                DisplayName = "Google",
+                SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
+
                 ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com",
                 ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
             });
 
             app.UseIdentityServer();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

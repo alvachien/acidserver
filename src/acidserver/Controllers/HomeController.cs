@@ -1,35 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace acidserver.Controllers
+using acidserver.UI.Models;
+using IdentityServer4.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
+namespace acidserver.UI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IIdentityServerInteractionService _interaction;
+
+        public HomeController(IIdentityServerInteractionService interaction)
+        {
+            _interaction = interaction;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        /// <summary>
+        /// Shows the error page
+        /// </summary>
+        public async Task<IActionResult> Error(string errorId)
         {
-            ViewData["Message"] = "About AC ID Server.";
+            var vm = new ErrorViewModel();
 
-            return View();
-        }
+            // retrieve error details from identityserver
+            var message = await _interaction.GetErrorContextAsync(errorId);
+            if (message != null)
+            {
+                vm.Error = message;
+            }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
+            return View("Error", vm);
         }
     }
 }
