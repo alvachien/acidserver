@@ -33,7 +33,11 @@ namespace acidserver.Configuration
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
+#if DEBUG
+                        "http://localhost:29521/logincallback.html"
+#else
                         "http://achihui.azurewebsites.net/logincallback.html"
+#endif
                     },
                     AllowedScopes = new List<String>
                     {
@@ -61,9 +65,9 @@ namespace acidserver.Configuration
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:1601/logoutcallback.html"
+                        "http://localhost:1601/index.html"
 #else
-                        "http://acgallery.azurewebsites.net/logoutcallback.html"
+                        "http://acgallery.azurewebsites.net/index.html"
 #endif
                     },
                     AllowedScopes = new List<String>
