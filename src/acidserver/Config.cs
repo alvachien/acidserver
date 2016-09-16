@@ -78,9 +78,11 @@ namespace acidserver
                     },
                     AllowedScopes = new List<String>
                     {
-                        ISStandardScopes.OpenId,
-                        ISStandardScopes.Profile,
-                        ISStandardScopes.Email,
+                        StandardScopes.OpenId.Name,
+                        StandardScopes.Profile.Name,
+                        StandardScopes.Roles.Name,
+                        StandardScopes.OfflineAccess.Name,
+                        StandardScopes.Email.Name,
                         "api.hihapi"
                     }
                 },
@@ -109,11 +111,11 @@ namespace acidserver
                     },
                     AllowedScopes = new List<String>
                     {
-                        ISStandardScopes.OpenId,
-                        ISStandardScopes.Profile,
-                        ISStandardScopes.Email,
-                        ISStandardScopes.Roles,
-                        ISStandardScopes.AllClaims,
+                        StandardScopes.OpenId.Name,
+                        StandardScopes.Profile.Name,
+                        StandardScopes.Roles.Name,
+                        StandardScopes.OfflineAccess.Name,
+                        StandardScopes.Email.Name,
                         "api.hihapi",
                         "api.acgallery"
                     }
