@@ -21,7 +21,7 @@ namespace acidserver.UI.Controllers
         private readonly IClientStore _clientStore;
         private readonly IScopeStore _scopeStore;
         private readonly IIdentityServerInteractionService _interaction;
-        
+
         public ConsentController(
             ILogger<ConsentController> logger,
             IIdentityServerInteractionService interaction,

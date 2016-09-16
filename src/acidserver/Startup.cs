@@ -52,7 +52,7 @@ namespace acidserver
         {
             services.AddCors();
 
-            //var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
+            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
             //var builder = services.AddIdentityServer(options =>
             //{
             //    options.AuthenticationOptions.AuthenticationScheme = "Cookies";
@@ -61,7 +61,6 @@ namespace acidserver
             //.AddInMemoryScopes(Scopes.Get())
             //.SetSigningCredential(cert);
 
-            //services.AddTransient<IProfileService, AspIdProfileService>();
 
             // Add framework services.
 #if DEBUG
@@ -72,28 +71,27 @@ namespace acidserver
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 #endif
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Cookies.ApplicationCookie.AuthenticationScheme = "Cookies";
-                options.ClaimsIdentity.UserIdClaimType = JwtClaimTypes.Subject;
-                options.ClaimsIdentity.UserNameClaimType = JwtClaimTypes.Name;
-                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;                
-            })
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, IdentityServerUserClaimsPrincipalFactory>();
             services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IProfileService, AspIdProfileService>();
 
-            services.AddIdentityServer()
-                .AddInMemoryStores()
+            //services.AddIdentityServer(options =>
+            //    {
+            //        options.AuthenticationOptions.AuthenticationScheme = "Cookies";
+            //    })
+            services.AddDeveloperIdentityServer()
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<AspIdProfileService>()                
+                .SetSigningCredential(cert);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -140,14 +138,8 @@ namespace acidserver
             app.UseStaticFiles();
 
             app.UseIdentity();
+            app.UseIdentityServer();
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
-
-                AutomaticAuthenticate = false,
-                AutomaticChallenge = false
-            });
             app.UseGoogleAuthentication(new GoogleOptions
             {
                 AuthenticationScheme = "Google",
@@ -158,8 +150,12 @@ namespace acidserver
                 ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
             });
 
-            app.UseIdentityServer();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
