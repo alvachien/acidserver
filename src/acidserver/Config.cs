@@ -73,7 +73,11 @@ namespace acidserver
 #if DEBUG
                         "http://localhost:29521/logincallback.html"
 #else
+#if USINGAZURE
                         "http://achihui.azurewebsites.net/logincallback.html"
+#else
+                        "http://118.178.58.187:5220/logiccallback.html"
+#endif
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -98,7 +102,11 @@ namespace acidserver
 #if DEBUG
                         "http://localhost:1601/logincallback.html"
 #else
+#if USINGAZURE
                         "http://acgallery.azurewebsites.net/logincallback.html"
+#else
+                        "http://118.178.58.187:5300/logincallback.html"
+#endif
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
@@ -106,7 +114,11 @@ namespace acidserver
 #if DEBUG
                         "http://localhost:1601/index.html"
 #else
+#if USINGAZURE
                         "http://acgallery.azurewebsites.net/index.html"
+#else
+                        "http://118.178.58.187:5300/index.html"
+#endif
 #endif
                     },
                     AllowedScopes = new List<String>
