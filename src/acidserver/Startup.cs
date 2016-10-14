@@ -120,7 +120,9 @@ namespace acidserver
                     "http://localhost:29521", // AC HIH UI
                     "https://localhost:29521",
                     "http://localhost:25688",  // AC HIH API
-                    "https://localhost:25688"
+                    "https://localhost:25688",
+                    "http://localhost:25325",  // AC Gallery API
+                    "https://localhost:25325"
 #else
                     "http://achihui.azurewebsites.net", 
                     "http://achihapi.azurewebsites.net",

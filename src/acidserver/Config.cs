@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#define USINGAZURE
-
 using IdentityServer4.Models;
 using IdentityServer4.Services.InMemory;
 using System.Collections.Generic;
@@ -43,7 +41,17 @@ namespace acidserver
                         new ScopeClaim("role")
                     }
                 },
-
+                new Scope
+                {
+                    Name = "api.galleryapi",
+                    DisplayName = "Gallery API",
+                    Description = "All Gallery features and data",
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>
+                    {
+                        new ScopeClaim("role")
+                    }
+                },
                 new Scope
                 {
                     Name = "api.acgallery",
@@ -75,11 +83,7 @@ namespace acidserver
 #if DEBUG
                         "http://localhost:29521/logincallback.html"
 #else
-#if USINGAZURE
-                        "http://achihui.azurewebsites.net/logincallback.html"
-#else
                         "http://118.178.58.187:5220/logiccallback.html"
-#endif
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -104,11 +108,7 @@ namespace acidserver
 #if DEBUG
                         "http://localhost:1601/logincallback.html"
 #else
-#if USINGAZURE
-                        "http://acgallery.azurewebsites.net/logincallback.html"
-#else
                         "http://118.178.58.187:5300/logincallback.html"
-#endif
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
@@ -116,11 +116,7 @@ namespace acidserver
 #if DEBUG
                         "http://localhost:1601/index.html"
 #else
-#if USINGAZURE
-                        "http://acgallery.azurewebsites.net/index.html"
-#else
                         "http://118.178.58.187:5300/index.html"
-#endif
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -130,7 +126,7 @@ namespace acidserver
                         StandardScopes.Roles.Name,
                         StandardScopes.OfflineAccess.Name,
                         StandardScopes.Email.Name,
-                        "api.hihapi",
+                        "api.galleryapi",
                         "api.acgallery"
                     }
                 }
