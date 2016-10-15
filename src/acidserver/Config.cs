@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+#define USE_MICROSOFTAZURE
+//#define USE_ALIYUN
+
 using IdentityServer4.Models;
 using IdentityServer4.Services.InMemory;
 using System.Collections.Generic;
@@ -81,9 +84,16 @@ namespace acidserver
                     RedirectUris = new List<String>
                     {
 #if DEBUG
-                        "http://localhost:29521/logincallback.html"
+                        "http://localhost:29521/logincallback.html",
+                        "https://localhost:29521/logincallback.html"
 #else
+#if USE_MICROSOFTAZURE
+                        "http://achihui.azurewebsites.net/logiccallback.html",
+                        "https://achihui.azurewebsites.net/logiccallback.html"
+#elif USE_ALIYUN
+                        "https://118.178.58.187:5220/logiccallback.html",
                         "http://118.178.58.187:5220/logiccallback.html"
+#endif
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -106,17 +116,30 @@ namespace acidserver
                     RedirectUris = new List<String>
                     {
 #if DEBUG
+                        "https://localhost:1601/logincallback.html",
                         "http://localhost:1601/logincallback.html"
 #else
-                        "http://118.178.58.187:5300/logincallback.html"
+#if USE_MICROSOFTAZURE
+                        "http://acgallery.azurewebsites.net/logiccallback.html",
+                        "https://acgallery.azurewebsites.net/logiccallback.html"
+#elif USE_ALIYUN
+                        "http://118.178.58.187:5300/logincallback.html",
+                        "https://118.178.58.187:5300/logincallback.html"
+#endif
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
+                        "http://localhost:1601/index.html",
                         "http://localhost:1601/index.html"
 #else
+#if USE_MICROSOFTAZURE
+                        "http://acgallery.azurewebsites.net/index.html",
+                        "https://acgallery.azurewebsites.net/index.html"
+#elif USE_ALIYUN
                         "http://118.178.58.187:5300/index.html"
+#endif
 #endif
                     },
                     AllowedScopes = new List<String>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+#define USE_MICROSOFTAZURE
+//#define USE_ALIYUN
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,8 +71,13 @@ namespace acidserver
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
 #else
+#if USE_MICROSOFTAZURE
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+#elif USE_ALIYUN
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AliyunConnection")));
+#endif
 #endif
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -117,19 +126,30 @@ namespace acidserver
 #if DEBUG
                     "http://localhost:1601", // AC gallery
                     "https://localhost:1601",
+
                     "http://localhost:29521", // AC HIH UI
                     "https://localhost:29521",
+
                     "http://localhost:25688",  // AC HIH API
                     "https://localhost:25688",
+
                     "http://localhost:25325",  // AC Gallery API
                     "https://localhost:25325"
 #else
+#if USE_MICROSOFTAZURE
                     "http://achihui.azurewebsites.net", 
-                    "http://achihapi.azurewebsites.net",
-                    "http://acgallery.azurewebsites.net",
                     "https://achihui.azurewebsites.net", 
+
+                    "http://achihapi.azurewebsites.net",
                     "https://achihapi.azurewebsites.net",
-                    "https://acgallery.azurewebsites.net"
+
+                    "http://acgallery.azurewebsites.net",
+                    "https://acgallery.azurewebsites.net",
+
+                    "http://acgalleryapi.azurewebsites.net",                    
+                    "https://acgalleryapi.azurewebsites.net"
+#elif USE_ALIYUN
+#endif
 #endif
                     )
                 .AllowAnyHeader()
