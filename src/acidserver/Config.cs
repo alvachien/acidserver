@@ -120,8 +120,8 @@ namespace acidserver
                         "http://localhost:1601/logincallback.html"
 #else
 #if USE_MICROSOFTAZURE
-                        "http://acgallery.azurewebsites.net/logiccallback.html",
-                        "https://acgallery.azurewebsites.net/logiccallback.html"
+                        "http://acgallery.azurewebsites.net/logincallback.html",
+                        "https://acgallery.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
                         "http://118.178.58.187:5210/logincallback.html",
                         "https://118.178.58.187:5210/logincallback.html"
