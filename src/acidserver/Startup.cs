@@ -149,6 +149,17 @@ namespace acidserver
                     "http://acgalleryapi.azurewebsites.net",                    
                     "https://acgalleryapi.azurewebsites.net"
 #elif USE_ALIYUN
+                    "http://118.178.58.187:5200/",
+                    "https://118.178.58.187:5200/",
+
+                    "http://118.178.58.187:5210/",
+                    "https://118.178.58.187:5210/",
+
+                    "http://118.178.58.187:5300/",
+                    "https://118.178.58.187:5300/",
+
+                    "http://118.178.58.187:5310/",
+                    "https://118.178.58.187:5310/"
 #endif
 #endif
                     )

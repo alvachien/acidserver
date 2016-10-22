@@ -91,8 +91,8 @@ namespace acidserver
                         "http://achihui.azurewebsites.net/logiccallback.html",
                         "https://achihui.azurewebsites.net/logiccallback.html"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5220/logiccallback.html",
-                        "http://118.178.58.187:5220/logiccallback.html"
+                        "https://118.178.58.187:5200/logiccallback.html",
+                        "http://118.178.58.187:5200/logiccallback.html"
 #endif
 #endif
                     },
@@ -123,8 +123,8 @@ namespace acidserver
                         "http://acgallery.azurewebsites.net/logiccallback.html",
                         "https://acgallery.azurewebsites.net/logiccallback.html"
 #elif USE_ALIYUN
-                        "http://118.178.58.187:5300/logincallback.html",
-                        "https://118.178.58.187:5300/logincallback.html"
+                        "http://118.178.58.187:5210/logincallback.html",
+                        "https://118.178.58.187:5210/logincallback.html"
 #endif
 #endif
                     },
@@ -138,7 +138,8 @@ namespace acidserver
                         "http://acgallery.azurewebsites.net/index.html",
                         "https://acgallery.azurewebsites.net/index.html"
 #elif USE_ALIYUN
-                        "http://118.178.58.187:5300/index.html"
+                        "http://118.178.58.187:5210/index.html",
+                        "https://118.178.58.187:5210/index.html"
 #endif
 #endif
                     },
