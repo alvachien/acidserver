@@ -95,7 +95,7 @@ namespace acidserver
             //    {
             //        options.AuthenticationOptions.AuthenticationScheme = "Cookies";
             //    })
-            services.AddDeveloperIdentityServer()
+            services.AddIdentityServer()
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>()
