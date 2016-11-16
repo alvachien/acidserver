@@ -99,8 +99,9 @@ namespace acidserver
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>()
-                .AddProfileService<AspIdProfileService>()                
-                .SetSigningCredential(cert);
+                .AddProfileService<AspIdProfileService>()
+                ;
+                //.SetSigningCredential(cert);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
