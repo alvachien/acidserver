@@ -100,6 +100,7 @@ namespace acidserver
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddProfileService<AspIdProfileService>()
+                .AddSigningCredential(cert)
                 ;
                 //.SetSigningCredential(cert);
         }
