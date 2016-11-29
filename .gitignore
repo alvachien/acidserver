@@ -261,3 +261,6 @@ paket-files/
 .idea/
 *.sln.iml
 /src/acidserver/appsettings.json
+
+# Publish folder
+PublishProfiles/
