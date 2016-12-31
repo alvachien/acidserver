@@ -4,70 +4,90 @@
 #define USE_MICROSOFTAZURE
 //#define USE_ALIYUN
 
+using IdentityServer4;
 using IdentityServer4.Models;
-using IdentityServer4.Services.InMemory;
+using IdentityServer4.Services;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace acidserver
 {
-    internal static class ISStandardScopes
-    {
-        public const string Address = "address";
-        public const string AllClaims = "all_claims";
-        public const string Email = "email";
-        public const string OfflineAccess = "offline_access";
-        public const string OpenId = "openid";
-        public const string Phone = "phone";
-        public const string Profile = "profile";
-        public const string Roles = "roles";
-    }
-
     public class Config
     {
         // scopes define the resources in your system
-        public static IEnumerable<Scope> GetScopes()
+        public static IEnumerable<IdentityResource> GetIdentityResources()
         {
-            return new List<Scope>
+            return new List<IdentityResource>
             {
-                StandardScopes.OpenId,
-                StandardScopes.Profile,
-                new Scope
-                {
-                    Name = "api.hihapi",
-                    DisplayName = "HIH API",
-                    Description = "All HIH features and data",
-                    Type = ScopeType.Resource,
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
-                new Scope
-                {
-                    Name = "api.galleryapi",
-                    DisplayName = "Gallery API",
-                    Description = "All Gallery features and data",
-                    Type = ScopeType.Resource,
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
-                new Scope
-                {
-                    Name = "api.acgallery",
-                    DisplayName = "API for gallery file part",
-                    Description = "All Gallery features and data",
-                    Type = ScopeType.Resource,
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResources.Email()                
             };
         }
+
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource(
+                    "api.hihapi", 
+                    "HIH API"
+                    ),
+                new ApiResource(
+                    "api.galleryapi",
+                    "Gallery API"
+                    ),
+                new ApiResource(
+                    "api.gallery",
+                    "Gallery App"
+                    )
+            };
+        }
+
+        //// scopes define the resources in your system
+        //public static IEnumerable<Scope> GetScopes()
+        //{
+        //    return new List<Scope>
+        //    {
+        //        StandardScopes.OpenId,
+        //        StandardScopes.Profile,
+        //        new Scope
+        //        {
+        //            Name = "api.hihapi",
+        //            DisplayName = "HIH API",
+        //            Description = "All HIH features and data",
+        //            Type = ScopeType.Resource,
+        //            Claims = new List<ScopeClaim>
+        //            {
+        //                new ScopeClaim("role")
+        //            }
+        //        },
+        //        new Scope
+        //        {
+        //            Name = "api.galleryapi",
+        //            DisplayName = "Gallery API",
+        //            Description = "All Gallery features and data",
+        //            Type = ScopeType.Resource,
+        //            Claims = new List<ScopeClaim>
+        //            {
+        //                new ScopeClaim("role")
+        //            }
+        //        },
+        //        new Scope
+        //        {
+        //            Name = "api.acgallery",
+        //            DisplayName = "API for gallery file part",
+        //            Description = "All Gallery features and data",
+        //            Type = ScopeType.Resource,
+        //            Claims = new List<ScopeClaim>
+        //            {
+        //                new ScopeClaim("role")
+        //            }
+        //        },
+        //    };
+        //}
 
         // clients want to access resources (aka scopes)
         public static IEnumerable<Client> GetClients()
@@ -98,11 +118,10 @@ namespace acidserver
                     },
                     AllowedScopes = new List<String>
                     {
-                        StandardScopes.OpenId.Name,
-                        StandardScopes.Profile.Name,
-                        StandardScopes.Roles.Name,
-                        StandardScopes.OfflineAccess.Name,
-                        StandardScopes.Email.Name,
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        StandardScopes.Email,
+                        StandardScopes.OfflineAccess,
                         "api.hihapi"
                     }
                 },
@@ -145,11 +164,10 @@ namespace acidserver
                     },
                     AllowedScopes = new List<String>
                     {
-                        StandardScopes.OpenId.Name,
-                        StandardScopes.Profile.Name,
-                        StandardScopes.Roles.Name,
-                        StandardScopes.OfflineAccess.Name,
-                        StandardScopes.Email.Name,
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        StandardScopes.OfflineAccess,
+                        StandardScopes.Email,
                         "api.galleryapi",
                         "api.acgallery"
                     }

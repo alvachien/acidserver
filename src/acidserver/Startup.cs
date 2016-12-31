@@ -19,7 +19,6 @@ using acidserver.Services;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Http;
-using acidserver.Configuration;
 using IdentityServer4.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
@@ -89,17 +88,17 @@ namespace acidserver
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<IProfileService, AspIdProfileService>();
 
             //services.AddIdentityServer(options =>
             //    {
             //        options.AuthenticationOptions.AuthenticationScheme = "Cookies";
             //    })
             services.AddIdentityServer()
-                .AddInMemoryScopes(Config.GetScopes())
+                .AddSigningCredential(cert)
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>()
-                .AddProfileService<AspIdProfileService>()
                 .AddSigningCredential(cert)
                 ;
                 //.SetSigningCredential(cert);
