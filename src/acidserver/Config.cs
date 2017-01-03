@@ -40,7 +40,7 @@ namespace acidserver
                     "Gallery API"
                     ),
                 new ApiResource(
-                    "api.gallery",
+                    "api.acgallery",
                     "Gallery App"
                     )
             };

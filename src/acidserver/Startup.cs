@@ -24,6 +24,7 @@ using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityServer4;
+using acidserver.Configuration;
 
 namespace acidserver
 {
@@ -100,6 +101,7 @@ namespace acidserver
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddSigningCredential(cert)
+                .AddProfileService<AspIdProfileService>()
                 ;
                 //.SetSigningCredential(cert);
         }
