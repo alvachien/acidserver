@@ -23,8 +23,8 @@
     "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
     "Microsoft.AspNetCore.Razor.Tools": "1.1.0-preview4-final",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
-    "IdentityServer4": "1.0.0",
-    "IdentityServer4.AspNetIdentity": "1.0.0"
+    "IdentityServer4.AspNetIdentity": "1.0.0",
+    "IdentityServer4": "1.0.2"
   },
 
   "tools": {
