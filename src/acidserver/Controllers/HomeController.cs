@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IdentityServer4.Services;
-using acidserver.UI.Models;
+using acidserver.UI;
 
 namespace acidserver.Controllers
 {
+    [SecurityHeaders]
     public class HomeController : Controller
     {
         private readonly IIdentityServerInteractionService _interaction;
@@ -24,21 +25,18 @@ namespace acidserver.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "About this app.";
+            ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Contact me if necessary.";
+            ViewData["Message"] = "Your contact page.";
 
             return View();
         }
 
-        /// <summary>
-        /// Shows the error page
-        /// </summary>
         public async Task<IActionResult> Error(string errorId)
         {
             var vm = new ErrorViewModel();

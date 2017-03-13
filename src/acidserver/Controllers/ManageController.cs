@@ -9,10 +9,12 @@ using Microsoft.Extensions.Logging;
 using acidserver.Models;
 using acidserver.Models.ManageViewModels;
 using acidserver.Services;
+using acidserver.UI;
 
 namespace acidserver.Controllers
 {
     [Authorize]
+    [SecurityHeaders]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace acidserver.UI.Models
+namespace acidserver.UI
 {
-    public class LogoutViewModel
+    public class LogoutViewModel : LogoutInputModel
     {
-        public string LogoutId { get; set; }
+        public bool ShowLogoutPrompt { get; set; }
     }
 }

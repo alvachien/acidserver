@@ -2,10 +2,6 @@
 #define USE_MICROSOFTAZURE
 //#define USE_ALIYUN
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -18,11 +14,6 @@ using acidserver.Models;
 using acidserver.Services;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Http;
-using IdentityServer4.Services;
-using IdentityModel;
-using Microsoft.AspNetCore.Identity;
-using System.IdentityModel.Tokens.Jwt;
 using IdentityServer4;
 using acidserver.Configuration;
 
@@ -99,8 +90,7 @@ namespace acidserver
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>()
-                .AddSigningCredential(cert)
+                .AddAspNetIdentity<ApplicationUser>()                
                 .AddProfileService<AspIdProfileService>()
                 ;
                 //.SetSigningCredential(cert);
