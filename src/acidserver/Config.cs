@@ -108,11 +108,26 @@ namespace acidserver
                         "https://localhost:29521/logincallback.html"
 #else
 #if USE_MICROSOFTAZURE
-                        "http://achihui.azurewebsites.net/logiccallback.html",
-                        "https://achihui.azurewebsites.net/logiccallback.html"
+                        "http://achihui.azurewebsites.net/logincallback.html",
+                        "https://achihui.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5200/logiccallback.html",
-                        "http://118.178.58.187:5200/logiccallback.html"
+                        "https://118.178.58.187:5200/loginccallback.html",
+                        "http://118.178.58.187:5200/logincallback.html"
+#endif
+#endif
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+#if DEBUG
+                        "http://localhost:29521/",
+                        "https://localhost:29521/"
+#else
+#if USE_MICROSOFTAZURE
+                        "http://achihui.azurewebsites.net/",
+                        "https://achihui.azurewebsites.net/"
+#elif USE_ALIYUN
+                        "https://118.178.58.187:5200/",
+                        "http://118.178.58.187:5200/"
 #endif
 #endif
                     },
