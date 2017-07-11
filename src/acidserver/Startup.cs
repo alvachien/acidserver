@@ -166,15 +166,15 @@ namespace acidserver
             app.UseIdentity();
             app.UseIdentityServer();
 
-            app.UseGoogleAuthentication(new GoogleOptions
-            {
-                AuthenticationScheme = "Google",
-                DisplayName = "Google",
-                SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
+            //app.UseGoogleAuthentication(new GoogleOptions
+            //{
+            //    AuthenticationScheme = "Google",
+            //    DisplayName = "Google",
+            //    SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
 
-                ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com",
-                ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
-            });
+            //    ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com",
+            //    ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
+            //});
 
             app.UseMvc(routes =>
             {
