@@ -186,7 +186,52 @@ namespace acidserver
                         "api.galleryapi",
                         "api.acgallery"
                     }
-                }
+                },
+                new Client
+                {
+                    ClientName = "AC Math Exercise",
+                    ClientId = "acexercise.math",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    RedirectUris = new List<String>
+                    {
+#if DEBUG
+                        "http://localhost:20000/logincallback.html",
+                        "https://localhost:20000/logincallback.html"
+#else
+#if USE_MICROSOFTAZURE
+                        "http://acmathexercise.azurewebsites.net/logincallback.html",
+                        "https://acmathexercise.azurewebsites.net/logincallback.html"
+#elif USE_ALIYUN
+                        "https://118.178.58.187:5320/loginccallback.html",
+                        "http://118.178.58.187:5320/logincallback.html"
+#endif
+#endif
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+#if DEBUG
+                        "http://localhost:20000/",
+                        "https://localhost:20000/"
+#else
+#if USE_MICROSOFTAZURE
+                        "http://acmathexercise.azurewebsites.net/",
+                        "https://acmathexercise.azurewebsites.net/"
+#elif USE_ALIYUN
+                        "https://118.178.58.187:5320/",
+                        "http://118.178.58.187:5320/"
+#endif
+#endif
+                    },
+                    AllowedScopes = new List<String>
+                    {
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        StandardScopes.Email,
+                        StandardScopes.OfflineAccess
+                    }
+                },
             };
         }
     }

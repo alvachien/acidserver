@@ -127,7 +127,10 @@ namespace acidserver
                     "https://localhost:25688",
 
                     "http://localhost:25325",  // AC Gallery API
-                    "https://localhost:25325"
+                    "https://localhost:25325",
+
+                    "http://localhost:20000",  // Math exercise
+                    "https://localhost:20000"
 #else
 #if USE_MICROSOFTAZURE
                     "http://achihui.azurewebsites.net", 
@@ -140,7 +143,10 @@ namespace acidserver
                     "https://acgallery.azurewebsites.net",
 
                     "http://acgalleryapi.azurewebsites.net",                    
-                    "https://acgalleryapi.azurewebsites.net"
+                    "https://acgalleryapi.azurewebsites.net",
+
+                    "http://acmathexercise.azurewebsites.net",                    
+                    "https://acmathexercise.azurewebsites.net"
 #elif USE_ALIYUN
                     "http://118.178.58.187:5200/",
                     "https://118.178.58.187:5200/",
@@ -152,7 +158,10 @@ namespace acidserver
                     "https://118.178.58.187:5300/",
 
                     "http://118.178.58.187:5310/",
-                    "https://118.178.58.187:5310/"
+                    "https://118.178.58.187:5310/",
+
+                    "http://118.178.58.187:5320/",
+                    "https://118.178.58.187:5320/"
 #endif
 #endif
                     )
