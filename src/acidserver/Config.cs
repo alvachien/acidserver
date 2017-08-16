@@ -42,6 +42,10 @@ namespace acidserver
                 new ApiResource(
                     "api.acgallery",
                     "Gallery App"
+                    ),
+                new ApiResource(
+                    "api.acquiz",
+                    "Quiz App"
                     )
             };
         }
@@ -229,7 +233,8 @@ namespace acidserver
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         StandardScopes.Email,
-                        StandardScopes.OfflineAccess
+                        StandardScopes.OfflineAccess,
+                        "api.acquiz"
                     }
                 },
             };

@@ -130,7 +130,10 @@ namespace acidserver
                     "https://localhost:25325",
 
                     "http://localhost:20000",  // Math exercise
-                    "https://localhost:20000"
+                    "https://localhost:20000",
+
+                    "http://localhost:54020/", // AC Quiz API
+                    "https://localhost:54020/"
 #else
 #if USE_MICROSOFTAZURE
                     "http://achihui.azurewebsites.net", 
@@ -146,7 +149,10 @@ namespace acidserver
                     "https://acgalleryapi.azurewebsites.net",
 
                     "http://acmathexercise.azurewebsites.net",                    
-                    "https://acmathexercise.azurewebsites.net"
+                    "https://acmathexercise.azurewebsites.net",
+
+                    "http://acquizapi.azurewebsites.net",                    
+                    "https://acquizapi.azurewebsites.net"
 #elif USE_ALIYUN
                     "http://118.178.58.187:5200/",
                     "https://118.178.58.187:5200/",
