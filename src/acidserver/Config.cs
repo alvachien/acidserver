@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#define USE_MICROSOFTAZURE
-//#define USE_ALIYUN
+//#define USE_MICROSOFTAZURE
+#define USE_ALIYUN
 
 using IdentityServer4;
 using IdentityServer4.Models;
@@ -208,8 +208,8 @@ namespace acidserver
                         "http://acmathexercise.azurewebsites.net/logincallback.html",
                         "https://acmathexercise.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5320/loginccallback.html",
-                        "http://118.178.58.187:5320/logincallback.html"
+                        "https://118.178.58.187:5230/loginccallback.html",
+                        "http://118.178.58.187:5230/logincallback.html"
 #endif
 #endif
                     },
@@ -223,8 +223,8 @@ namespace acidserver
                         "http://acmathexercise.azurewebsites.net/",
                         "https://acmathexercise.azurewebsites.net/"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5320/",
-                        "http://118.178.58.187:5320/"
+                        "https://118.178.58.187:5230/",
+                        "http://118.178.58.187:5230/"
 #endif
 #endif
                     },

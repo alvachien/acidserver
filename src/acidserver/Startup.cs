@@ -1,6 +1,6 @@
 ﻿
-#define USE_MICROSOFTAZURE
-//#define USE_ALIYUN
+//#define USE_MICROSOFTAZURE
+#define USE_ALIYUN
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -61,14 +61,12 @@ namespace acidserver
 #if DEBUG
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
-#else
-#if USE_MICROSOFTAZURE
+#elif USE_MICROSOFTAZURE
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 #elif USE_ALIYUN
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AliyunConnection")));
-#endif
 #endif
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -132,10 +130,10 @@ namespace acidserver
                     "http://localhost:20000",  // Math exercise
                     "https://localhost:20000",
 
-                    "http://localhost:54020/", // AC Quiz API
-                    "https://localhost:54020/"
-#else
-#if USE_MICROSOFTAZURE
+                    "http://localhost:54020", // AC Quiz API
+                    "https://localhost:54020"
+
+#elif USE_MICROSOFTAZURE
                     "http://achihui.azurewebsites.net", 
                     "https://achihui.azurewebsites.net", 
 
@@ -154,21 +152,23 @@ namespace acidserver
                     "http://acquizapi.azurewebsites.net",                    
                     "https://acquizapi.azurewebsites.net"
 #elif USE_ALIYUN
-                    "http://118.178.58.187:5200/",
-                    "https://118.178.58.187:5200/",
+                    "http://118.178.58.187:5200", // HIH UI
+                    "https://118.178.58.187:5200",
 
-                    "http://118.178.58.187:5210/",
-                    "https://118.178.58.187:5210/",
+                    "http://118.178.58.187:5210", // Gallery
+                    "https://118.178.58.187:5210",
 
-                    "http://118.178.58.187:5300/",
-                    "https://118.178.58.187:5300/",
+                    "http://118.178.58.187:5230", // Math exercise
+                    "https://118.178.58.187:5230",
 
-                    "http://118.178.58.187:5310/",
-                    "https://118.178.58.187:5310/",
+                    "http://118.178.58.187:5300", // HIH API
+                    "https://118.178.58.187:5300",
 
-                    "http://118.178.58.187:5320/",
-                    "https://118.178.58.187:5320/"
-#endif
+                    "http://118.178.58.187:5310", // Gallery API
+                    "https://118.178.58.187:5310",
+
+                    "http://118.178.58.187:5330", // Quiz API
+                    "https://118.178.58.187:5330"
 #endif
                     )
                 .AllowAnyHeader()
