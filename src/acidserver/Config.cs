@@ -104,6 +104,7 @@ namespace acidserver
                     ClientId = "achihui.js",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
+                    AllowOfflineAccess = true, // For refresh toekn
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
@@ -123,15 +124,15 @@ namespace acidserver
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:29521/",
-                        "https://localhost:29521/"
+                        "http://localhost:29521",
+                        "https://localhost:29521"
 #else
 #if USE_MICROSOFTAZURE
-                        "http://achihui.azurewebsites.net/",
-                        "https://achihui.azurewebsites.net/"
+                        "http://achihui.azurewebsites.net",
+                        "https://achihui.azurewebsites.net"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5200/",
-                        "http://118.178.58.187:5200/"
+                        "https://118.178.58.187:5200",
+                        "http://118.178.58.187:5200"
 #endif
 #endif
                     },
@@ -150,6 +151,7 @@ namespace acidserver
                     ClientId = "acgallery.app",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
+                    AllowOfflineAccess = true, // For refresh toekn
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
@@ -195,8 +197,9 @@ namespace acidserver
                 {
                     ClientName = "AC Math Exercise",
                     ClientId = "acexercise.math",
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
                     AllowAccessTokensViaBrowser = true,
+                    AllowOfflineAccess = true, // For refresh token
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
@@ -216,15 +219,15 @@ namespace acidserver
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:20000/",
-                        "https://localhost:20000/"
+                        "http://localhost:20000",
+                        "https://localhost:20000"
 #else
 #if USE_MICROSOFTAZURE
-                        "http://acmathexercise.azurewebsites.net/",
-                        "https://acmathexercise.azurewebsites.net/"
+                        "http://acmathexercise.azurewebsites.net",
+                        "https://acmathexercise.azurewebsites.net"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5230/",
-                        "http://118.178.58.187:5230/"
+                        "https://118.178.58.187:5230",
+                        "http://118.178.58.187:5230"
 #endif
 #endif
                     },
