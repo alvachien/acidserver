@@ -80,6 +80,20 @@ namespace acidserver.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                // Try to enlarge the expiration time
+                // https://github.com/IdentityServer/IdentityServer4/issues/861
+
+                //var urinst = await _userManager.FindByNameAsync(model.Email);
+                //AuthenticationProperties props = new AuthenticationProperties
+                //{
+                //    IsPersistent = true,
+                //    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(120)
+                //};
+                //await _signInManager.SignInAsync(urinst, props);
+
+                // The end!
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberLogin, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
