@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace acidserver.Models.AccountViewModels
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginViewModel
     {
         [Required]
         [EmailAddress]

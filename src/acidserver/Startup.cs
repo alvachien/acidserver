@@ -2,66 +2,44 @@
 //#define USE_MICROSOFTAZURE
 #define USE_ALIYUN
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using acidserver.Configuration;
 using acidserver.Data;
 using acidserver.Models;
 using acidserver.Services;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using IdentityServer4;
-using acidserver.Configuration;
-using System;
 
 namespace acidserver
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            Environment = env;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-            if (env.IsDevelopment())
-            {
-                //builder.AddUserSecrets();
-            }
-
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
 
-            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.dat"), "idsrv3test");
-            //var builder = services.AddIdentityServer(options =>
-            //{
-            //    options.AuthenticationOptions.AuthenticationScheme = "Cookies";
-            //})
-            //.AddInMemoryClients(Clients.Get())
-            //.AddInMemoryScopes(Scopes.Get())
-            //.SetSigningCredential(cert);
-
-
             // Add framework services.
 #if DEBUG
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
+                //options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
+                options.UseSqlServer(Configuration["ConnectionStrings:DebugConnection"]));
+            
 #elif USE_MICROSOFTAZURE
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
@@ -74,38 +52,36 @@ namespace acidserver
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddMvc();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
-
-            //services.AddIdentityServer(options =>
-            //    {
-            //        options.AuthenticationOptions.AuthenticationScheme = "Cookies";
-            //    })
+            // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
-                .AddSigningCredential(cert)
-                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddDeveloperSigningCredential()
+                .AddInMemoryPersistedGrants()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>()                
-                .AddProfileService<AspIdProfileService>()
-                ;
-                //.SetSigningCredential(cert);
+                .AddAspNetIdentity<ApplicationUser>();
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "998042782978-s07498t8i8jas7npj4crve1skpromf37.apps.googleusercontent.com";
+                    options.ClientSecret = "HsnwJri_53zn7VcO1Fm7THBb";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -174,23 +150,12 @@ namespace acidserver
                     )
                 .AllowAnyHeader()
                 .AllowAnyMethod()
-                .AllowCredentials();               
+                .AllowCredentials();
             });
-
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            // app.UseIdentity(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();
-
-            //app.UseGoogleAuthentication(new GoogleOptions
-            //{
-            //    AuthenticationScheme = "Google",
-            //    DisplayName = "Google",
-            //    SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
-
-            //    ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com",
-            //    ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
-            //});
 
             app.UseMvc(routes =>
             {

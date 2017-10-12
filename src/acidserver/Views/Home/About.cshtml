@@ -1,11 +1,19 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Authentication;
+@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>AC Identity Server App, provides the identification service for web apps.</p>
-<hr />
-<p>
-    Special credits to <a href="https://github.com/IdentityServer/IdentityServer4">Identity Server 4</a>
-</p>
+<h3>User claims</h3>
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+
+    }
+    <dt>id token</dt>
+    <dd>@await ViewContext.HttpContext.GetTokenAsync("id_token")</dd>
+</dl>

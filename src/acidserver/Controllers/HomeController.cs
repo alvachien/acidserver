@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,6 @@ using acidserver.UI;
 
 namespace acidserver.Controllers
 {
-    [SecurityHeaders]
     public class HomeController : Controller
     {
         private readonly IIdentityServerInteractionService _interaction;
@@ -37,6 +37,9 @@ namespace acidserver.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Shows the error page
+        /// </summary>
         public async Task<IActionResult> Error(string errorId)
         {
             var vm = new ErrorViewModel();
