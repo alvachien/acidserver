@@ -1,6 +1,9 @@
-﻿
-#define USE_MICROSOFTAZURE
-//#define USE_ALIYUN
+﻿#if RELEASE
+//#define USE_MICROSOFTAZURE
+#define USE_ALIYUN
+#else
+#define DEBUG
+#endif
 
 using System;
 using System.Collections.Generic;
@@ -39,13 +42,13 @@ namespace acidserver
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
                 options.UseSqlServer(Configuration["ConnectionStrings:DebugConnection"]));
-            
+
 #elif USE_MICROSOFTAZURE
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+                options.UseSqlServer(Configuration["ConnectionStrings:AzureConnection"]));
 #elif USE_ALIYUN
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AliyunConnection")));
+                options.UseSqlServer(Configuration["ConnectionStrings:AliyunConnection"]));
 #endif
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
