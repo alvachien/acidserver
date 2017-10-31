@@ -1,8 +1,10 @@
-﻿#if RELEASE
-//#define USE_MICROSOFTAZURE
-#define USE_ALIYUN
+﻿#if DEBUG
+#undef USE_AZURE
+#undef USE_ALIYUN
 #else
-#define DEBUG
+//#define USE_AZURE
+#define USE_ALIYUN
+#undef USE_AZURE
 #endif
 
 using System;
@@ -42,13 +44,14 @@ namespace acidserver
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
                 options.UseSqlServer(Configuration["ConnectionStrings:DebugConnection"]));
-
-#elif USE_MICROSOFTAZURE
+#else
+#if USE_AZURE
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:AzureConnection"]));
 #elif USE_ALIYUN
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:AliyunConnection"]));
+#endif
 #endif
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -112,8 +115,8 @@ namespace acidserver
 
                     "http://localhost:54020", // AC Quiz API
                     "https://localhost:54020"
-
-#elif USE_MICROSOFTAZURE
+#else
+#if USE_AZURE
                     "http://achihui.azurewebsites.net", 
                     "https://achihui.azurewebsites.net", 
 
@@ -149,6 +152,7 @@ namespace acidserver
 
                     "http://118.178.58.187:5330", // Quiz API
                     "https://118.178.58.187:5330"
+#endif
 #endif
                     )
                 .AllowAnyHeader()

@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#if RELEASE
-//#define USE_MICROSOFTAZURE
-#undef DEBUG
-#define USE_ALIYUN
+#if DEBUG
+#undef USE_AZURE
+#undef USE_ALIYUN
 #else
-#define DEBUG
-#undef RELEASE
+//#define USE_AZURE
+#define USE_ALIYUN
+#undef USE_AZURE
 #endif
 
 using IdentityServer4;
@@ -118,7 +118,7 @@ namespace acidserver
                         "http://localhost:29521/logincallback.html",
                         "https://localhost:29521/logincallback.html"
 #else
-#if USE_MICROSOFTAZURE
+#if USE_AZURE
                         "http://achihui.azurewebsites.net/logincallback.html",
                         "https://achihui.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
@@ -133,7 +133,7 @@ namespace acidserver
                         "http://localhost:29521",
                         "https://localhost:29521"
 #else
-#if USE_MICROSOFTAZURE
+#if USE_AZURE
                         "http://achihui.azurewebsites.net",
                         "https://achihui.azurewebsites.net"
 #elif USE_ALIYUN
@@ -165,7 +165,7 @@ namespace acidserver
                         "https://localhost:1601/logincallback.html",
                         "http://localhost:1601/logincallback.html"
 #else
-#if USE_MICROSOFTAZURE
+#if USE_AZURE
                         "http://acgallery.azurewebsites.net/logincallback.html",
                         "https://acgallery.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
@@ -180,7 +180,7 @@ namespace acidserver
                         "http://localhost:1601/index.html",
                         "http://localhost:1601/index.html"
 #else
-#if USE_MICROSOFTAZURE
+#if USE_AZURE
                         "http://acgallery.azurewebsites.net/index.html",
                         "https://acgallery.azurewebsites.net/index.html"
 #elif USE_ALIYUN
@@ -213,7 +213,7 @@ namespace acidserver
                         "http://localhost:20000/logincallback.html",
                         "https://localhost:20000/logincallback.html"
 #else
-#if USE_MICROSOFTAZURE
+#if USE_AZURE
                         "http://acmathexercise.azurewebsites.net/logincallback.html",
                         "https://acmathexercise.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
@@ -228,7 +228,7 @@ namespace acidserver
                         "http://localhost:20000",
                         "https://localhost:20000"
 #else
-#if USE_MICROSOFTAZURE
+#if USE_AZURE
                         "http://acmathexercise.azurewebsites.net",
                         "https://acmathexercise.azurewebsites.net"
 #elif USE_ALIYUN
