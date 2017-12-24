@@ -4,7 +4,6 @@
 #else
 //#define USE_AZURE
 #define USE_ALIYUN
-#undef USE_AZURE
 #endif
 
 using System;
