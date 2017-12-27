@@ -68,8 +68,9 @@ namespace acidserver
                 .AddInMemoryPersistedGrants()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddInMemoryClients(Config.GetClients())                
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<AspIdProfileService>();
 
             services.AddAuthentication()
                 .AddGoogle(options =>
