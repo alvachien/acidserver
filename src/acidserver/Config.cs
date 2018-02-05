@@ -176,15 +176,15 @@ namespace acidserver
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:1601/index.html",
-                        "http://localhost:1601/index.html"
+                        "http://localhost:1601",
+                        "http://localhost:1601"
 #else
 #if USE_AZURE
-                        "http://acgallery.azurewebsites.net/index.html",
-                        "https://acgallery.azurewebsites.net/index.html"
+                        "http://acgallery.azurewebsites.net",
+                        "https://acgallery.azurewebsites.net"
 #elif USE_ALIYUN
-                        "http://118.178.58.187:5210/index.html",
-                        "https://118.178.58.187:5210/index.html"
+                        "http://118.178.58.187:5210",
+                        "https://118.178.58.187:5210"
 #endif
 #endif
                     },
