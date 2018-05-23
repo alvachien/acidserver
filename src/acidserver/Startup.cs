@@ -1,10 +1,10 @@
-﻿#if DEBUG
-#undef USE_AZURE
-#undef USE_ALIYUN
-#else
-//#define USE_AZURE
-#define USE_ALIYUN
-#endif
+﻿//#if DEBUG
+//#undef USE_AZURE
+//#undef USE_ALIYUN
+//#else
+////#define USE_AZURE
+//#define USE_ALIYUN
+//#endif
 
 using System;
 using System.Collections.Generic;

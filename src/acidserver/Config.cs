@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#if DEBUG
-#undef USE_AZURE
-#undef USE_ALIYUN
-#else
-//#define USE_AZURE
-#define USE_ALIYUN
-#endif
+//#if DEBUG
+//#undef USE_AZURE
+//#undef USE_ALIYUN
+//#else
+////#define USE_AZURE
+//#define USE_ALIYUN
+//#endif
 
 using IdentityServer4;
 using IdentityServer4.Models;
@@ -118,7 +118,6 @@ namespace acidserver
                         "https://localhost:29521/logincallback.html"
 #else
 #if USE_AZURE
-                        "http://achihui.azurewebsites.net/logincallback.html",
                         "https://achihui.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
                         "https://118.178.58.187:5200/loginccallback.html",
@@ -133,7 +132,6 @@ namespace acidserver
                         "https://localhost:29521"
 #else
 #if USE_AZURE
-                        "http://achihui.azurewebsites.net",
                         "https://achihui.azurewebsites.net"
 #elif USE_ALIYUN
                         "https://118.178.58.187:5200",
@@ -161,11 +159,10 @@ namespace acidserver
                     RedirectUris = new List<String>
                     {
 #if DEBUG
-                        "https://localhost:1601/logincallback.html",
-                        "http://localhost:1601/logincallback.html"
+                        "https://localhost:16001/logincallback.html",
+                        "http://localhost:16001/logincallback.html"
 #else
 #if USE_AZURE
-                        "http://acgallery.azurewebsites.net/logincallback.html",
                         "https://acgallery.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
                         "http://118.178.58.187:5210/logincallback.html",
@@ -176,11 +173,10 @@ namespace acidserver
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:1601",
-                        "http://localhost:1601"
+                        "http://localhost:16001",
+                        "http://localhost:16001"
 #else
 #if USE_AZURE
-                        "http://acgallery.azurewebsites.net",
                         "https://acgallery.azurewebsites.net"
 #elif USE_ALIYUN
                         "http://118.178.58.187:5210",
@@ -213,7 +209,6 @@ namespace acidserver
                         "https://localhost:20000/logincallback.html"
 #else
 #if USE_AZURE
-                        "http://acmathexercise.azurewebsites.net/logincallback.html",
                         "https://acmathexercise.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
                         "https://118.178.58.187:5230/loginccallback.html",
@@ -228,7 +223,6 @@ namespace acidserver
                         "https://localhost:20000"
 #else
 #if USE_AZURE
-                        "http://acmathexercise.azurewebsites.net",
                         "https://acmathexercise.azurewebsites.net"
 #elif USE_ALIYUN
                         "https://118.178.58.187:5230",
