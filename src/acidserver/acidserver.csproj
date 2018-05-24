@@ -5,9 +5,18 @@
     <ApplicationIcon />
     <StartupObject />
     <Authors>Alva Chien</Authors>
+    <Configurations>Debug;Release;AzureRelease;AliyunRelease</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>RELEASE;NETCOREAPP2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AliyunRelease|AnyCPU'">
+    <DefineConstants>RELEASE;NETCOREAPP2_0;USE_ALIYUN</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureRelease|AnyCPU'">
     <DefineConstants>RELEASE;NETCOREAPP2_0;USE_AZURE</DefineConstants>
   </PropertyGroup>
   

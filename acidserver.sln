@@ -11,10 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "acidserver", "src\acidserve
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AliyunRelease|Any CPU = AliyunRelease|Any CPU
+		AzureRelease|Any CPU = AzureRelease|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.AliyunRelease|Any CPU.ActiveCfg = AliyunRelease|Any CPU
+		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.AliyunRelease|Any CPU.Build.0 = AliyunRelease|Any CPU
+		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.AzureRelease|Any CPU.ActiveCfg = AzureRelease|Any CPU
+		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.AzureRelease|Any CPU.Build.0 = AzureRelease|Any CPU
 		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -25,5 +31,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5A43566C-F7CF-4C12-A4C0-01B51A6AA939} = {394FC93A-B75E-4917-AC50-C186B25B5EB6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DC1E663-4414-488A-BC96-E6CF97C8C228}
 	EndGlobalSection
 EndGlobal
