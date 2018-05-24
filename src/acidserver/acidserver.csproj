@@ -17,7 +17,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureRelease|AnyCPU'">
-    <DefineConstants>RELEASE;NETCOREAPP2_0;USE_AZURE</DefineConstants>
+    <DefineConstants>RELEASE;NETCOREAPP2_0;USE_AZURE;USE_SSL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;USE_SSL</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>

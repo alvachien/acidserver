@@ -1,14 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-//#if DEBUG
-//#undef USE_AZURE
-//#undef USE_ALIYUN
-//#else
-////#define USE_AZURE
-//#define USE_ALIYUN
-//#endif
-
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Services;

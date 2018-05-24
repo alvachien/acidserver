@@ -90,60 +90,54 @@ namespace acidserver
             {
                 option.WithOrigins(
 #if DEBUG
+#if USE_SSL
+                    "https://localhost:1601", // AC gallery
+                    "https://localhost:29521", // AC HIH UI
+                    "https://localhost:44366", // AC HIH API
+                    "https://localhost:25325", // AC Gallery API
+                    "https://localhost:20000", // Math exercise
+                    "https://localhost:54020" // AC Quiz API
+#else
                     "http://localhost:1601", // AC gallery
-                    "https://localhost:1601",
-
                     "http://localhost:29521", // AC HIH UI
-                    "https://localhost:29521",
-
                     "http://localhost:25688",  // AC HIH API
-                    "https://localhost:25688",
-
                     "http://localhost:25325",  // AC Gallery API
-                    "https://localhost:25325",
-
                     "http://localhost:20000",  // Math exercise
-                    "https://localhost:20000",
-
-                    "http://localhost:54020", // AC Quiz API
-                    "https://localhost:54020"
+                    "http://localhost:54020"  // AC Quiz API
+#endif
 #else
 #if USE_AZURE
-                    "http://achihui.azurewebsites.net", 
+#if USE_SSL
                     "https://achihui.azurewebsites.net", 
-
-                    "http://achihapi.azurewebsites.net",
                     "https://achihapi.azurewebsites.net",
-
-                    "http://acgallery.azurewebsites.net",
                     "https://acgallery.azurewebsites.net",
-
-                    "http://acgalleryapi.azurewebsites.net",                    
                     "https://acgalleryapi.azurewebsites.net",
-
-                    "http://acmathexercise.azurewebsites.net",                    
                     "https://acmathexercise.azurewebsites.net",
-
-                    "http://acquizapi.azurewebsites.net",                    
                     "https://acquizapi.azurewebsites.net"
+#else
+                    "http://achihui.azurewebsites.net",
+                    "http://achihapi.azurewebsites.net",
+                    "http://acgallery.azurewebsites.net",
+                    "http://acgalleryapi.azurewebsites.net",
+                    "http://acmathexercise.azurewebsites.net",
+                    "http://acquizapi.azurewebsites.net"
+#endif
 #elif USE_ALIYUN
+#if USE_SSL
+                    "https://118.178.58.187:5200", // HIH UI
+                    "https://118.178.58.187:5210", // Gallery
+                    "https://118.178.58.187:5230", // Math exercise
+                    "https://118.178.58.187:5300", // HIH API
+                    "https://118.178.58.187:5310", // Gallery API
+                    "https://118.178.58.187:5330" // Quiz API
+#else
                     "http://118.178.58.187:5200", // HIH UI
-                    "https://118.178.58.187:5200",
-
                     "http://118.178.58.187:5210", // Gallery
-                    "https://118.178.58.187:5210",
-
                     "http://118.178.58.187:5230", // Math exercise
-                    "https://118.178.58.187:5230",
-
                     "http://118.178.58.187:5300", // HIH API
-                    "https://118.178.58.187:5300",
-
                     "http://118.178.58.187:5310", // Gallery API
-                    "https://118.178.58.187:5310",
-
-                    "http://118.178.58.187:5330", // Quiz API
-                    "https://118.178.58.187:5330"
+                    "http://118.178.58.187:5330" // Quiz API
+#endif
 #endif
 #endif
                     )
