@@ -91,14 +91,14 @@ namespace acidserver
                 option.WithOrigins(
 #if DEBUG
 #if USE_SSL
-                    "https://localhost:1601", // AC gallery
+                    "https://localhost:16001", // AC gallery
                     "https://localhost:29521", // AC HIH UI
                     "https://localhost:44366", // AC HIH API
                     "https://localhost:25325", // AC Gallery API
                     "https://localhost:20000", // Math exercise
                     "https://localhost:54020" // AC Quiz API
 #else
-                    "http://localhost:1601", // AC gallery
+                    "http://localhost:16001", // AC gallery
                     "http://localhost:29521", // AC HIH UI
                     "http://localhost:25688",  // AC HIH API
                     "http://localhost:25325",  // AC Gallery API
