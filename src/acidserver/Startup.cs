@@ -12,36 +12,47 @@ using acidserver.Configuration;
 using acidserver.Data;
 using acidserver.Models;
 using acidserver.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace acidserver
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
-
-        public IConfiguration Configuration { get; }
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddCors();
 
             // Add framework services.
 #if DEBUG
             services.AddDbContext<ApplicationDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
-                options.UseSqlServer(Configuration["ConnectionStrings:DebugConnection"]));
-#else
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+#endif
+#if RELEASE
 #if USE_AZURE
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings:AzureConnection"]));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 #elif USE_ALIYUN
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings:AliyunConnection"]));
+                options.UseSqlServer(Configuration.GetConnectionString("AliyunConnection")));
 #endif
 #endif
 
@@ -49,21 +60,30 @@ namespace acidserver
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddMvc();
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // configure identity server with in-memory stores, keys, clients and scopes
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryPersistedGrants()
+            var builder = services.AddIdentityServer(options =>
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>()                
-                //.AddProfileService<AspIdProfileService>()
-                ;
+                .AddAspNetIdentity<ApplicationUser>();
+
+            if (Environment.IsDevelopment())
+            {
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
+                throw new Exception("need to configure key material");
+            }
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -79,12 +99,12 @@ namespace acidserver
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                // app.UseHsts();
             }
 
             app.UseCors(option =>
@@ -106,7 +126,9 @@ namespace acidserver
                     "http://localhost:20000",  // Math exercise
                     "http://localhost:54020"  // AC Quiz API
 #endif
-#else
+#endif
+
+#if RELEASE
 #if USE_AZURE
 #if USE_SSL
                     "https://achihui.azurewebsites.net", 
@@ -147,6 +169,8 @@ namespace acidserver
                 .AllowCredentials();
             });
             app.UseStaticFiles();
+            // app.UseHttpsRedirection();
+            app.UseCookiePolicy();
 
             // app.UseIdentity(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();
