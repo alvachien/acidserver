@@ -29,12 +29,8 @@ namespace acidserver
             return new List<ApiResource>
             {
                 new ApiResource(
-                    "api.hihapi", 
+                    "api.hih", 
                     "HIH API"
-                    ),
-                new ApiResource(
-                    "api.galleryapi",
-                    "Gallery API"
                     ),
                 new ApiResource(
                     "api.acgallery",
@@ -103,6 +99,7 @@ namespace acidserver
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh toekn
                     RequireConsent = false,
+                    AlwaysIncludeUserClaimsInIdToken = true,                    
                     RedirectUris = new List<String>
                     {
 #if DEBUG
@@ -137,7 +134,7 @@ namespace acidserver
                         StandardScopes.Profile,
                         StandardScopes.Email,
                         StandardScopes.OfflineAccess,
-                        "api.hihapi"
+                        "api.hih"
                     }
                 },
                 new Client
@@ -147,6 +144,7 @@ namespace acidserver
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh toekn
+                    AlwaysIncludeUserClaimsInIdToken = true,
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
@@ -182,7 +180,6 @@ namespace acidserver
                         StandardScopes.Profile,
                         StandardScopes.OfflineAccess,
                         StandardScopes.Email,
-                        "api.galleryapi",
                         "api.acgallery"
                     }
                 },
@@ -193,6 +190,7 @@ namespace acidserver
                     AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh token
+                    AlwaysIncludeUserClaimsInIdToken = true,
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
