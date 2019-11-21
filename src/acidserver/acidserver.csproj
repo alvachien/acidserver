@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
     <Authors>Alva Chien</Authors>
     <Configurations>Debug;Release;AzureRelease;AliyunRelease</Configurations>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <Company>Alva Chien</Company>
-    <Copyright>(C) Copyright by Alva Chien, 2016 - 2018</Copyright>
+    <Copyright>(C) Copyright by Alva Chien, 2016 - 2019</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -30,10 +30,10 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="IdentityServer4" Version="2.2.0" />
-    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+    <PackageReference Include="IdentityServer4" Version="2.5.3" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.5.3" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" PrivateAssets="All" />
   </ItemGroup>
  
-</Project>
+</Project> 
