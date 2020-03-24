@@ -1,6 +1,6 @@
 ﻿@model LoggedOutViewModel
 
-@{
+@{ 
     // set this so the layout rendering sees an anonymous user
     ViewData["signed-out"] = true;
 }
@@ -26,7 +26,7 @@
 </div>
 
 @section scripts
-    {
+{
     @if (Model.AutomaticRedirectAfterSignOut)
     {
         <script src="~/js/signout-redirect.js"></script>
