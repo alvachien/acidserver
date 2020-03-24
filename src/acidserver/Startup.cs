@@ -62,8 +62,8 @@ namespace acidserver
 
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
+                //.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // configure identity server with in-memory stores, keys, clients and scopes
             var builder = services.AddIdentityServer(options =>
