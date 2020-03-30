@@ -6,7 +6,7 @@
     <StartupObject />
     <Authors>Alva Chien</Authors>
     <Configurations>Debug;Release;AzureRelease;AliyunRelease</Configurations>
-    <Version>1.4.0</Version>
+    <Version>1.4.3</Version>
     <Company>Alva Chien</Company>
     <Copyright>(C) Copyright by Alva Chien, 2016 - 2020</Copyright>
   </PropertyGroup>
@@ -31,9 +31,13 @@
 
   <ItemGroup>
     <Compile Remove="Elder\**" />
+    <Compile Remove="logs\**" />
     <Content Remove="Elder\**" />
+    <Content Remove="logs\**" />
     <EmbeddedResource Remove="Elder\**" />
+    <EmbeddedResource Remove="logs\**" />
     <None Remove="Elder\**" />
+    <None Remove="logs\**" />
   </ItemGroup>
   
   <ItemGroup>
