@@ -109,8 +109,7 @@ namespace acidserver
 #if USE_AZURE
                         "https://achihui.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5200/loginccallback.html",
-                        "http://118.178.58.187:5200/logincallback.html"
+                        "https://www.alvachien.com/hih/logincallback.html"
 #endif
 #endif
                     },
@@ -123,8 +122,7 @@ namespace acidserver
 #if USE_AZURE
                         "https://achihui.azurewebsites.net"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5200",
-                        "http://118.178.58.187:5200"
+                        "https://www.alvachien.com/hih"
 #endif
 #endif
                     },
@@ -155,8 +153,7 @@ namespace acidserver
 #if USE_AZURE
                         "https://acgallery.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
-                        "http://118.178.58.187:5210/logincallback.html",
-                        "https://118.178.58.187:5210/logincallback.html"
+                        "https://www.alvachien.com/gallery/logincallback.html"
 #endif
 #endif
                     },
@@ -169,8 +166,7 @@ namespace acidserver
 #if USE_AZURE
                         "https://acgallery.azurewebsites.net"
 #elif USE_ALIYUN
-                        "http://118.178.58.187:5210",
-                        "https://118.178.58.187:5210"
+                        "https://www.alvachien.com/gallery"
 #endif
 #endif
                     },
@@ -201,8 +197,7 @@ namespace acidserver
 #if USE_AZURE
                         "https://acmathexercise.azurewebsites.net/logincallback.html"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5230/loginccallback.html",
-                        "http://118.178.58.187:5230/logincallback.html"
+                        "https://www.alvachien.com/math/logincallback.html"
 #endif
 #endif
                     },
@@ -215,8 +210,7 @@ namespace acidserver
 #if USE_AZURE
                         "https://acmathexercise.azurewebsites.net"
 #elif USE_ALIYUN
-                        "https://118.178.58.187:5230",
-                        "http://118.178.58.187:5230"
+                        "https://www.alvachien.com/math"
 #endif
 #endif
                     },

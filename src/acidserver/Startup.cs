@@ -142,12 +142,12 @@ namespace acidserver
 #endif
 #elif USE_ALIYUN
 #if USE_SSL
-                    "https://118.178.58.187:5200", // HIH UI
-                    "https://118.178.58.187:5210", // Gallery
-                    "https://118.178.58.187:5230", // Math exercise
-                    "https://118.178.58.187:5300", // HIH API
-                    "https://118.178.58.187:5310", // Gallery API
-                    "https://118.178.58.187:5330" // Quiz API
+                    "https://www.alvachien.com/hih", // HIH UI
+                    "https://www.alvachien.com/gallery", // Gallery
+                    "https://www.alvachien.com/math", // Math exercise
+                    "https://www.alvachien.com/hihapi", // HIH API
+                    "https://www.alvachien.com/galleryapi", // Gallery API
+                    "https://www.alvachien.com/quizapi" // Quiz API
 #else
                     "http://118.178.58.187:5200", // HIH UI
                     "http://118.178.58.187:5210", // Gallery
