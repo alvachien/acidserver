@@ -1,5 +1,7 @@
-﻿@{
-    var version = typeof(acidserver.Startup).Assembly.GetName().Version.ToString();
+﻿@using System.Diagnostics
+
+@{
+    var version = FileVersionInfo.GetVersionInfo(typeof(acidserver.Startup).Assembly.Location).ProductVersion.Split('+').First();
 }
 
 <div>

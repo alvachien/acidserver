@@ -33,19 +33,19 @@ namespace acidserver
         {
             services.AddControllersWithViews();
 
-            // configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
-            services.Configure<IISOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = false;
-            });
+            //// configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
+            //services.Configure<IISOptions>(iis =>
+            //{
+            //    iis.AuthenticationDisplayName = "Windows";
+            //    iis.AutomaticAuthentication = false;
+            //});
 
-            // configures IIS in-proc settings
-            services.Configure<IISServerOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = false;
-            });
+            //// configures IIS in-proc settings
+            //services.Configure<IISServerOptions>(iis =>
+            //{
+            //    iis.AuthenticationDisplayName = "Windows";
+            //    iis.AutomaticAuthentication = false;
+            //});
 
             services.AddCors();
 
@@ -76,6 +76,9 @@ namespace acidserver
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
+
+                    // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+                    options.EmitStaticAudienceClaim = true;
                 })
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
@@ -163,6 +166,7 @@ namespace acidserver
                 .AllowAnyMethod()
                 .AllowCredentials();
             });
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseIdentityServer();

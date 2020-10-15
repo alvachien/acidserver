@@ -1,63 +1,28 @@
-﻿@using IdentityServer4.Extensions
-@{
-    string name = null;
-    if (!true.Equals(ViewData["signed-out"]))
-    {
-        name = Context.User?.GetDisplayName();
-    }
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>AC ID Server</title>
+
     <link rel="icon" type="image/x-icon" href="~/icon.png" />
     <link rel="shortcut icon" type="image/x-icon" href="~/icon.png" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <a class="navbar-brand" href="~/">
-            <img src="~/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            AC ID Server
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                @if (!string.IsNullOrWhiteSpace(name))
-                {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @name
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
-                        </ul>
-                    </li>
-                }
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+    <partial name="_Nav" />
 
     <div class="container body-content">
         @RenderBody()
     </div>
 
-    <script src="~/lib/jquery-3.4.1.min.js"></script>
+    <script src="~/lib/jquery.slim.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

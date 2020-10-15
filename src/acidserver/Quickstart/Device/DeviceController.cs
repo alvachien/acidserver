@@ -11,20 +11,18 @@ using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
-using IdentityServer4.Stores;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace IdentityServer4.Quickstart.UI.Device
+namespace IdentityServer4.Quickstart.UI
 {
     [Authorize]
     [SecurityHeaders]
     public class DeviceController : Controller
     {
-
         private readonly IDeviceFlowInteractionService _interaction;
         private readonly IEventService _events;
         private readonly IOptions<IdentityServerOptions> _options;
