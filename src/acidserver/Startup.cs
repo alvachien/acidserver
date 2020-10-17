@@ -32,6 +32,7 @@ namespace acidserver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddLogging();
 
             //// configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
             //services.Configure<IISOptions>(iis =>
@@ -80,13 +81,22 @@ namespace acidserver
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
                 })
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>()
-                .AddDeveloperSigningCredential();
+                .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryClients(Config.Clients)
+                .AddAspNetIdentity<ApplicationUser>();
 
             builder.AddDeveloperSigningCredential();
+
+            builder.Services.ConfigureExternalCookie(options => {
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = (SameSiteMode)(-1); //SameSiteMode.Unspecified in .NET Core 3.1
+            });
+
+            builder.Services.ConfigureApplicationCookie(options => {
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = (SameSiteMode)(-1); //SameSiteMode.Unspecified in .NET Core 3.1
+            });
 
             services.AddAuthentication();
                 //.AddGoogle(options =>

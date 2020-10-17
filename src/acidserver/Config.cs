@@ -14,34 +14,49 @@ namespace acidserver
     public class Config
     {
         // scopes define the resources in your system
-        public static IEnumerable<IdentityResource> GetIdentityResources()
-        {
-            return new List<IdentityResource>
+        //public static IEnumerable<IdentityResource> GetIdentityResources()
+        //{
+        //    return new List<IdentityResource>
+        //    {
+        //        new IdentityResources.OpenId(),
+        //        new IdentityResources.Profile(),
+        //        new IdentityResources.Email()
+        //    };
+        //}
+        public static IEnumerable<IdentityResource> IdentityResources =>
+            new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email()                
+                new IdentityResources.Email()
             };
-        }
 
-        public static IEnumerable<ApiResource> GetApiResources()
-        {
-            return new List<ApiResource>
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new List<ApiScope>
             {
-                new ApiResource(
-                    "api.hih", 
-                    "HIH API"
-                    ),
-                new ApiResource(
-                    "api.acgallery",
-                    "Gallery App"
-                    ),
-                new ApiResource(
-                    "api.acquiz",
-                    "Quiz App"
-                    )
+                 new ApiScope("api.hih", "HIH API"),
+                 new ApiScope("api.acgallery", "Gallery App"),
+                 new ApiScope("api.acquiz", "Quiz App")
             };
-        }
+
+        //public static IEnumerable<ApiResource> GetApiResources()
+        //{
+        //    return new List<ApiResource>
+        //    {
+        //        new ApiResource(
+        //            "api.hih", 
+        //            "HIH API"
+        //            ),
+        //        new ApiResource(
+        //            "api.acgallery",
+        //            "Gallery App"
+        //            ),
+        //        new ApiResource(
+        //            "api.acquiz",
+        //            "Quiz App"
+        //            )
+        //    };
+        //}
 
         //// scopes define the resources in your system
         //public static IEnumerable<Scope> GetScopes()
@@ -87,19 +102,24 @@ namespace acidserver
         //}
 
         // clients want to access resources (aka scopes)
-        public static IEnumerable<Client> GetClients()
-        {
-            return new List<Client>
+        //public static IEnumerable<Client> GetClients()
+        //{
+            //return new List<Client>
+
+        public static IEnumerable<Client> Clients => new List<Client>
             {
                 new Client
                 {
                     ClientName = "AC HIH App",
                     ClientId = "achihui.js",
                     AllowedGrantTypes = GrantTypes.Implicit,
+
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh toekn
                     RequireConsent = false,
-                    AlwaysIncludeUserClaimsInIdToken = true,                    
+                    AlwaysIncludeUserClaimsInIdToken = true,
+
+                    RequireClientSecret = false,
                     RedirectUris = new List<String>
                     {
 #if DEBUG
@@ -126,6 +146,21 @@ namespace acidserver
 #endif
 #endif
                     },
+//                    AllowedCorsOrigins =
+//                    {
+//#if DEBUG
+//                        "http://localhost:29521",
+//                        "https://localhost:29521",
+//                        "http://localhost:25688",
+//                        "https://localhost:25688"
+//#else
+//#if USE_AZURE
+//                        "https://achihui.azurewebsites.net"
+//#elif USE_ALIYUN
+//                        "https://www.alvachien.com/hih"
+//#endif
+//#endif
+//                    },
                     AllowedScopes = new List<String>
                     {
                         StandardScopes.OpenId,
@@ -222,8 +257,8 @@ namespace acidserver
                         StandardScopes.OfflineAccess,
                         "api.acquiz"
                     }
-                },
+                }
             };
-        }
+        
     }
 }

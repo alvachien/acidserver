@@ -264,3 +264,6 @@ paket-files/
 
 # Publish folder
 PublishProfiles/
+
+# Exclude files
+tempkey.jwk
