@@ -9,6 +9,7 @@
     <Version>1.4.12</Version>
     <Company>Alva Chien</Company>
     <Copyright>(C) Copyright by Alva Chien, 2016 - 2020</Copyright>
+    <UserSecretsId>59ec4a2c-040c-43d4-906e-0857d3d755d1</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
