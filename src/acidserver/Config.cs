@@ -195,7 +195,7 @@ namespace acidserver
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:16001",
+                        "https://localhost:16001",
                         "http://localhost:16001"
 #else
 #if USE_AZURE
@@ -205,7 +205,7 @@ namespace acidserver
 #endif
 #endif
                     },
-                    AllowedScopes = new List<String>
+                    AllowedScopes = new List<string>
                     {
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
