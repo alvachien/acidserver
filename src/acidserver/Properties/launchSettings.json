@@ -13,7 +13,9 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "ancmHostingModel": "OutOfProcess",
+      "use64Bit": true
     },
     "acidserver": {
       "commandName": "Project",
