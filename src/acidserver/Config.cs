@@ -182,8 +182,8 @@ namespace acidserver
                     RedirectUris = new List<String>
                     {
 #if DEBUG
-                        "https://localhost:16001/logincallback.html",
-                        "http://localhost:16001/logincallback.html"
+                        "https://localhost:16001/logincallback.html"
+                        // "http://localhost:16001/logincallback.html"
 #else
 #if USE_AZURE
                         "https://acgallery.azurewebsites.net/logincallback.html"
@@ -195,8 +195,8 @@ namespace acidserver
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-                        "http://localhost:16001",
-                        "http://localhost:16001"
+                        "https://localhost:16001"
+                        // "http://localhost:16001"
 #else
 #if USE_AZURE
                         "https://acgallery.azurewebsites.net"
@@ -205,7 +205,7 @@ namespace acidserver
 #endif
 #endif
                     },
-                    AllowedScopes = new List<String>
+                    AllowedScopes = new List<string>
                     {
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
