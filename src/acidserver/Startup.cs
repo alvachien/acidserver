@@ -27,21 +27,18 @@ namespace acidserver
             Configuration = configuration;
         }
 
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddLogging();
 
-            //// configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
+            // configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
             //services.Configure<IISOptions>(iis =>
             //{
             //    iis.AuthenticationDisplayName = "Windows";
             //    iis.AutomaticAuthentication = false;
             //});
 
-            //// configures IIS in-proc settings
+            // configures IIS in-proc settings
             //services.Configure<IISServerOptions>(iis =>
             //{
             //    iis.AuthenticationDisplayName = "Windows";
@@ -78,7 +75,7 @@ namespace acidserver
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
 
-                    // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+                    // see https://docs.duendesoftware.com/identityserver/v5/fundamentals/resources/
                     options.EmitStaticAudienceClaim = true;
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
@@ -86,7 +83,7 @@ namespace acidserver
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
-            builder.AddDeveloperSigningCredential();
+            //builder.AddDeveloperSigningCredential();
 
             builder.Services.ConfigureExternalCookie(options => {
                 options.Cookie.IsEssential = true;
