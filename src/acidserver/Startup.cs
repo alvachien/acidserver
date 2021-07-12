@@ -81,6 +81,9 @@ namespace acidserver
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
+#if DEBUG
+                .AddTestUsers(Config.TestUsers)
+#endif
                 .AddAspNetIdentity<ApplicationUser>();
 
             //builder.AddDeveloperSigningCredential();

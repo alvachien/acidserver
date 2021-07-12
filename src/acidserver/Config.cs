@@ -1,4 +1,5 @@
 ﻿using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Test;
 using System;
 using System.Collections.Generic;
 using static Duende.IdentityServer.IdentityServerConstants;
@@ -22,6 +23,18 @@ namespace acidserver
                  new ApiScope("api.acgallery", "Gallery App"),
                  new ApiScope("api.acquiz", "Quiz App")
             };
+
+#if DEBUG
+        public static List<TestUser> TestUsers =>
+            new()
+            {
+                new TestUser()
+                {
+                    Username = "testuser",
+                    Password = "testuser_pwd"
+                }
+            };
+#endif
 
         public static IEnumerable<Client> Clients => new List<Client>
             {
@@ -174,7 +187,37 @@ namespace acidserver
                         StandardScopes.OfflineAccess,
                         "api.acquiz"
                     }
+#if DEBUG
+                },
+                new Client
+                {
+                    ClientId = "postman",
+                    ClientName = "Postman client",
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    // RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
+                    RedirectUris = { "https://oauth.pstmn.io/v1/callback" },
+                    PostLogoutRedirectUris = { "https://www.getpostman.com" },
+                    AllowedCorsOrigins = { "https://www.getpostman.com" },
+                    EnableLocalLogin = true,
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    ClientSecrets = { new Secret("Postman".Sha256()) },
+                    AllowOfflineAccess = true,
+                    Enabled = true,
+                    AllowedScopes = new List<String>
+                    {
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        StandardScopes.Email,
+                        StandardScopes.OfflineAccess,
+                        "api.acquiz",
+                        "api.acgallery",
+                        "api.hih"
+                    }
+#endif
                 }
-            };        
+
+        };        
     }
 }
