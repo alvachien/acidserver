@@ -2,6 +2,7 @@
 using Duende.IdentityServer.Test;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using static Duende.IdentityServer.IdentityServerConstants;
 
 namespace acidserver
@@ -30,8 +31,9 @@ namespace acidserver
             {
                 new TestUser()
                 {
-                    Username = "testuser",
-                    Password = "testuser_pwd"
+                    SubjectId = "C731D080-1B8A-4152-833A-431FCD099C01",
+                    Username = "Admin",
+                    Password = "password"
                 }
             };
 #endif
@@ -191,26 +193,30 @@ namespace acidserver
                 },
                 new Client
                 {
-                    ClientId = "postman",
+                    ClientId = "Postman",
                     ClientName = "Postman client",
-                    AllowAccessTokensViaBrowser = true,
+                    // AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
-                    // RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
-                    RedirectUris = { "https://oauth.pstmn.io/v1/callback" },
+                    RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
+                    // RedirectUris = { "https://oauth.pstmn.io/v1/callback" },
                     PostLogoutRedirectUris = { "https://www.getpostman.com" },
                     AllowedCorsOrigins = { "https://www.getpostman.com" },
                     EnableLocalLogin = true,
 
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = new []
+                    {
+                        GrantType.ResourceOwnerPassword
+                    },
                     ClientSecrets = { new Secret("Postman".Sha256()) },
+                    ClientUri = null,
                     AllowOfflineAccess = true,
                     Enabled = true,
-                    AllowedScopes = new List<String>
+                    AllowedScopes = new []
                     {
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         StandardScopes.Email,
-                        StandardScopes.OfflineAccess,
+                        // StandardScopes.OfflineAccess,
                         "api.acquiz",
                         "api.acgallery",
                         "api.hih"
