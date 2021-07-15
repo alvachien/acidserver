@@ -260,10 +260,11 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-appsettings*.json
 
 # Publish folder
 PublishProfiles/
 
 # Exclude files
 tempkey.jwk
+appsettings.json
+appsettings.Development.json
