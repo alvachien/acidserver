@@ -62,6 +62,7 @@ namespace acidserver
                 options.UseSqlServer(Configuration.GetConnectionString("AliyunConnection")));
 #endif
 #endif
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -112,7 +113,6 @@ namespace acidserver
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
 
             app.UseCors(option =>
