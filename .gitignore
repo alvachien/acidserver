@@ -267,3 +267,6 @@ PublishProfiles/
 
 # Exclude files
 tempkey.jwk
+
+# Skip others
+keys/
