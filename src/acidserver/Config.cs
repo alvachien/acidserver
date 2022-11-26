@@ -45,14 +45,17 @@ namespace WebApplication1
                     ClientName = "AC HIH App",
                     ClientId = "achihui.js",
                     AllowedGrantTypes = GrantTypes.Code,
+
                     RequireClientSecret = false,
                     RequirePkce = true,
 
+                    AccessTokenLifetime = 900, // 900 seconds
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh token
 
                     RequireConsent = false,
-                    AlwaysIncludeUserClaimsInIdToken = true,
+                    //AlwaysIncludeUserClaimsInIdToken = true,
+                    RefreshTokenUsage=TokenUsage.OneTimeOnly,
 
                     RedirectUris = new List<String>
                     {
@@ -87,8 +90,7 @@ namespace WebApplication1
                         StandardScopes.Email,
                         StandardScopes.OfflineAccess,
                         "api.hih"
-                    },
-                    AccessTokenLifetime = 3600
+                    }
                 },
                 new Client
                 {
@@ -102,7 +104,9 @@ namespace WebApplication1
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh token
 
-                    AlwaysIncludeUserClaimsInIdToken = true,
+                    //AlwaysIncludeUserClaimsInIdToken = true,
+                    RefreshTokenUsage=TokenUsage.OneTimeOnly,
+
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
@@ -150,7 +154,9 @@ namespace WebApplication1
 
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true, // For refresh token
-                    AlwaysIncludeUserClaimsInIdToken = true,
+                    //AlwaysIncludeUserClaimsInIdToken = true,
+                    RefreshTokenUsage=TokenUsage.OneTimeOnly,
+
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
