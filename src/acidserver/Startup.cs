@@ -99,6 +99,7 @@ namespace WebApplication1
 #else
                     "https://localhost:16001", // AC gallery
                     "https://localhost:29521", // AC HIH UI
+                    "https://localhost:29528", // AC HIH App
                     "https://localhost:44366", // AC HIH API
                     "https://localhost:25325", // AC Gallery API
                     // "https://localhost:20000", // Math exercise

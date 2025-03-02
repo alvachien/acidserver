@@ -60,27 +60,21 @@ namespace WebApplication1
                     RedirectUris = new List<String>
                     {
 #if DEBUG
-#if USE_ALIYUN
-                        "https://www.alvachien.com/hih"
-#else
                         "http://localhost:29521",
-                        "https://localhost:29521"
-#endif
+                        "https://localhost:29521",
+                        "https://localhost:29528"
 #else
-                        "https://www.alvachien.com"
+                        "https://www.alvachien.com/hih"
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
 #if DEBUG
-#if USE_ALIYUN
-                        "https://www.alvachien.com/hih"
-#else
                         "http://localhost:29521",
-                        "https://localhost:29521"
-#endif
+                        "https://localhost:29521",
+                        "https://localhost:29528"
 #else
-                        "https://www.alvachien.com"
+                        "https://www.alvachien.com/hih"
 #endif
                     },
                     AllowedScopes = new List<String>
