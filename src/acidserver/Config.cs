@@ -25,19 +25,6 @@ namespace WebApplication1
                  new ApiScope("api.knowledgebuilder", "Knowledge Builder API")
             };
 
-#if DEBUG
-        //public static List<TestUser> TestUsers =>
-        //    new()
-        //    {
-        //        new TestUser()
-        //        {
-        //            SubjectId = "C731D080-1B8A-4152-833A-431FCD099C01",
-        //            Username = "Admin",
-        //            Password = "password"
-        //        }
-        //    };
-#endif
-
         public static IEnumerable<Client> Clients => new List<Client>
             {
                 new Client
@@ -59,22 +46,22 @@ namespace WebApplication1
 
                     RedirectUris = new List<String>
                     {
-#if DEBUG
+#if DELIVERTOALICLOUD
+                        "https://www.alvachien.com/hih"
+#else
                         "http://localhost:29521",
                         "https://localhost:29521",
                         "https://localhost:29528"
-#else
-                        "https://www.alvachien.com/hih"
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-#if DEBUG
+#if DELIVERTOALICLOUD
+                        "https://www.alvachien.com/hih"
+#else
                         "http://localhost:29521",
                         "https://localhost:29521",
                         "https://localhost:29528"
-#else
-                        "https://www.alvachien.com/hih"
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -104,27 +91,18 @@ namespace WebApplication1
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
-#if DEBUG
-#if USE_ALIYUN
+#if DELIVERTOALICLOUD
                         "https://www.alvachien.com/gallery"
 #else
                         "https://localhost:16001"
-#endif
-#else
-                        "https://www.alvachien.com"
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-#if DEBUG
-#if USE_ALIYUN
+#if DELIVERTOALICLOUD
                         "https://www.alvachien.com/gallery"
 #else
                         "https://localhost:16001"
-                        // "http://localhost:16001"
-#endif
-#else
-                        "https://www.alvachien.com"
 #endif
                     },
                     AllowedScopes = new List<string>
@@ -154,28 +132,20 @@ namespace WebApplication1
                     RequireConsent = false,
                     RedirectUris = new List<String>
                     {
-#if DEBUG
-#if USE_ALIYUN
+#if DELIVERTOALICLOUD
                         "https://www.alvachien.com/math"
 #else
-                        "http://localhost:44367",
-                        "https://localhost:44367"
-#endif
-#else
-                        "https://www.alvachien.com"
+                        "https://localhost:44367",
+                        "http://localhost:44367"
 #endif
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-#if DEBUG
-#if USE_ALIYUN
+#if DELIVERTOALICLOUD
                         "https://www.alvachien.com/math"
 #else
-                        "http://localhost:44367",
-                        "https://localhost:44367"
-#endif
-#else
-                        "https://www.alvachien.com"
+                        "https://localhost:44367",
+                        "http://localhost:44367"
 #endif
                     },
                     AllowedScopes = new List<String>
@@ -187,7 +157,8 @@ namespace WebApplication1
                         "api.knowledgebuilder"
                    },
                     AccessTokenLifetime = 3600
-#if DEBUG
+#if DELIVERTOALICLOUD
+#else 
                 },
                 new Client
                 {

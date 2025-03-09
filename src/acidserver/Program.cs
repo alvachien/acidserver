@@ -19,33 +19,30 @@ builder.Host.UseSerilog((context, config) =>
     var environment = context.HostingEnvironment;
     var outputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}";
 
-    //config.MinimumLevel.Is(environment.IsDevelopment() ? LogEventLevel.Information : LogEventLevel.Warning)
-    //     .Enrich.FromLogContext()
-    //     .WriteTo.File(
-    //         path: "../Logs/ACIDServer/log-.txt",
-    //         rollingInterval: RollingInterval.Day, // 按天滚动
-    //         outputTemplate: outputTemplate,
-    //         retainedFileCountLimit: 14 // 保留最近7天日志
-    //     );
-    if (environment.IsDevelopment())
-    {
+//config.MinimumLevel.Is(environment.IsDevelopment() ? LogEventLevel.Information : LogEventLevel.Warning)
+//     .Enrich.FromLogContext()
+//     .WriteTo.File(
+//         path: "../Logs/ACIDServer/log-.txt",
+//         rollingInterval: RollingInterval.Day, // 按天滚动
+//         outputTemplate: outputTemplate,
+//         retainedFileCountLimit: 14 // 保留最近7天日志
+//     );
+#if DELIVERTOALICLOUD
+    config.MinimumLevel.Is(LogEventLevel.Warning)
+         .Enrich.FromLogContext()
+         .WriteTo.File(
+             path: "../Logs/ACIDServer/log-.txt",
+             rollingInterval: RollingInterval.Day, // 按天滚动
+             outputTemplate: outputTemplate,
+             retainedFileCountLimit: 14 // 保留最近7天日志
+         );
+#else
         config.MinimumLevel.Is(LogEventLevel.Information)
              .Enrich.FromLogContext()
              .WriteTo.Console(theme: SystemConsoleTheme.Colored);
-
-    }
-    else if (environment.IsProduction())
-    {
-        config.MinimumLevel.Is(LogEventLevel.Warning)
-             .Enrich.FromLogContext()
-             .WriteTo.File(
-                 path: "../Logs/ACIDServer/log-.txt",
-                 rollingInterval: RollingInterval.Day, // 按天滚动
-                 outputTemplate: outputTemplate,
-                 retainedFileCountLimit: 14 // 保留最近7天日志
-             );
-    }
+#endif
 });
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -75,47 +72,42 @@ builder.Services.AddAuthentication();
 // Build the application
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseMigrationsEndPoint();
-}
-else if(builder.Environment.IsProduction())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+#if DELIVERTOALICLOUD
+app.UseExceptionHandler("/Home/Error");
+// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+app.UseHsts();
+#else
+app.UseDeveloperExceptionPage();
+app.UseMigrationsEndPoint();
+#endif
+
 
 app.UseHttpsRedirection();
 
-if (builder.Environment.IsDevelopment())
+#if DELIVERTOALICLOUD
+app.UseCors(option =>
 {
-    app.UseCors(option =>
-    {
-        option.WithOrigins(
-            "https://localhost:16001", // AC gallery
-            "https://localhost:29521", // AC HIH UI
-            "https://localhost:29528", // AC HIH App
-            "https://localhost:44366", // AC HIH API
-            "https://localhost:25325", // AC Gallery API
-            "https://localhost:44367"    // Knowledge builder
-            )
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
-    });
-}
-else if (builder.Environment.IsProduction())
+    option.WithOrigins("https://www.alvachien.com")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials();
+});
+#else
+app.UseCors(option =>
 {
-    app.UseCors(option =>
-    {
-        option.WithOrigins("https://www.alvachien.com")
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
-    });
-}
+    option.WithOrigins(
+        "https://localhost:16001", // AC gallery
+        "https://localhost:29521", // AC HIH UI
+        "https://localhost:29528", // AC HIH App
+        "https://localhost:44366", // AC HIH API
+        "https://localhost:25325", // AC Gallery API
+        "https://localhost:44367"    // Knowledge builder
+        )
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials();
+});
+#endif
 
 app.UseStaticFiles();
 app.UseRouting()

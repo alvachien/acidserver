@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "acidserver", "src\acidserve
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Aliyun Release|Any CPU = Aliyun Release|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DeliverToAliCloud|Any CPU = DeliverToAliCloud|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Aliyun Release|Any CPU.ActiveCfg = Aliyun Release|Any CPU
-		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Aliyun Release|Any CPU.Build.0 = Aliyun Release|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.ActiveCfg = DeliverToAliCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.Build.0 = DeliverToAliCloud|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

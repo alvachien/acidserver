@@ -5,14 +5,14 @@
     <UserSecretsId>aspnet-WebApplication1-BDB1F3C6-E418-4EE8-8AE4-57463A6EC0BA</UserSecretsId>
 	<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
     <PackageId>AC Identity Server</PackageId>
-    <Version>2.0.5</Version>
+    <Version>2.0.25</Version>
     <Authors>Alva Chien</Authors>
     <Company>Alva Chien</Company>
     <Product>Identity Server</Product>
     <Copyright>Copyright by Alva Chien</Copyright>
     <AssemblyName>acidserver</AssemblyName>
     <RootNamespace>acidserver</RootNamespace>
-    <Configurations>Debug;Release;Aliyun Release</Configurations>
+    <Configurations>Debug;Release;DeliverToAliCloud</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -23,9 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Aliyun Release|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;USE_ALIYUN</DefineConstants>
-    <Optimize>True</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeliverToAliCloud|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
