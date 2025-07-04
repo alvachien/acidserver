@@ -1,126 +1,77 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
+using System;
+using System.Globalization;
+using System.Text;
+using Duende.IdentityServer.Licensing;
+using IdentityServerAspNetIdentity;
 using Serilog;
-using Serilog.Events;
-using WebApplication1.Data;
-using Microsoft.EntityFrameworkCore;
-using WebApplication1;
-using Serilog.Sinks.SystemConsole.Themes;
 
-var builder = WebApplication.CreateBuilder(args);
+// The initial "bootstrap" logger is able to log errors during start-up. It's completely replaced by the
+// logger configured in `AddSerilog()` below, once configuration and dependency-injection have both been
+// set up successfully.
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-// Config the log
-builder.Host.UseSerilog((context, config) =>
+Log.Information("Starting web application");
+
+try
 {
-    var environment = context.HostingEnvironment;
-    var outputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}";
+    var builder = WebApplication.CreateBuilder(args);
 
-//config.MinimumLevel.Is(environment.IsDevelopment() ? LogEventLevel.Information : LogEventLevel.Warning)
-//     .Enrich.FromLogContext()
-//     .WriteTo.File(
-//         path: "../Logs/ACIDServer/log-.txt",
-//         rollingInterval: RollingInterval.Day, // 按天滚动
-//         outputTemplate: outputTemplate,
-//         retainedFileCountLimit: 14 // 保留最近7天日志
-//     );
-#if DELIVERTOALICLOUD
-    config.MinimumLevel.Is(LogEventLevel.Warning)
-         .Enrich.FromLogContext()
-         .WriteTo.File(
-             path: "../Logs/ACIDServer/log-.txt",
-             rollingInterval: RollingInterval.Day, // 按天滚动
-             outputTemplate: outputTemplate,
-             retainedFileCountLimit: 14 // 保留最近7天日志
-         );
-#else
-        config.MinimumLevel.Is(LogEventLevel.Information)
-             .Enrich.FromLogContext()
-             .WriteTo.Console(theme: SystemConsoleTheme.Colored);
-#endif
-});
+    // Add services to the container.
+    builder.Services.AddSerilog((services, lc) => lc
+        .ReadFrom.Configuration(builder.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .WriteTo.Console());
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    var app = builder
+        .ConfigureServices()
+        .ConfigurePipeline();
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
-builder.Services.AddCors();
-
-builder.Services.AddIdentityServer(options => {
-        options.Events.RaiseErrorEvents = true;
-        options.Events.RaiseInformationEvents = true;
-        options.Events.RaiseFailureEvents = true;
-        options.Events.RaiseSuccessEvents = true;
-
-        // see https://docs.duendesoftware.com/identityserver/v5/fundamentals/resources/
-        options.EmitStaticAudienceClaim = true;
-    })
-    .AddInMemoryIdentityResources(Config.IdentityResources)
-    .AddInMemoryApiScopes(Config.ApiScopes)
-    .AddInMemoryClients(Config.Clients)
-    .AddAspNetIdentity<IdentityUser>();
-
-builder.Services.AddAuthentication();
-
-// Build the application
-var app = builder.Build();
-
-#if DELIVERTOALICLOUD
-app.UseExceptionHandler("/Home/Error");
-// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-app.UseHsts();
-#else
-app.UseDeveloperExceptionPage();
-app.UseMigrationsEndPoint();
-#endif
-
-
-app.UseHttpsRedirection();
-
-#if DELIVERTOALICLOUD
-app.UseCors(option =>
-{
-    option.WithOrigins("https://www.alvachien.com")
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials();
-});
-#else
-app.UseCors(option =>
-{
-    option.WithOrigins(
-        "https://localhost:16001", // AC gallery
-        "https://localhost:29521", // AC HIH UI
-        "https://localhost:29528", // AC HIH App
-        "https://localhost:44366", // AC HIH API
-        "https://localhost:25325", // AC Gallery API
-        "https://localhost:44367"    // Knowledge builder
-        )
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials();
-});
-#endif
-
-app.UseStaticFiles();
-app.UseRouting()
-    .UseEndpoints(endpoints =>
+    // this seeding is only for the template to bootstrap the DB and users.
+    // in production you will likely want a different approach.
+    if (args.Contains("/seed"))
     {
-        endpoints.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-        endpoints.MapRazorPages();
-    });
-app.UseIdentityServer();
-app.UseAuthentication();
-app.UseAuthorization();
+        //Log.Information("Seeding database...");
+        SeedData.EnsureSeedData(app);
+        //Log.Information("Done seeding database. Exiting.");
+        return;
+    }
 
-app.Run();
+    if (app.Environment.IsDevelopment())
+    {
+        app.Lifetime.ApplicationStopping.Register(() =>
+        {
+            var usage = app.Services.GetRequiredService<LicenseUsageSummary>();
+            Console.Write(Summary(usage));
+            Console.ReadKey();
+        });
+    }
 
+    app.UseSerilogRequestLogging();
+
+    app.Run();
+}
+catch (Exception ex) when (ex is not HostAbortedException)
+{
+    Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+    Log.Information("Shut down complete");
+    Log.CloseAndFlush();
+}
+
+static string Summary(LicenseUsageSummary usage)
+{
+    var sb = new StringBuilder();
+    sb.AppendLine("IdentityServer Usage Summary:");
+    sb.AppendLine(CultureInfo.InvariantCulture, $"  License: {usage.LicenseEdition}");
+    var features = usage.FeaturesUsed.Count > 0 ? string.Join(", ", usage.FeaturesUsed) : "None";
+    sb.AppendLine(CultureInfo.InvariantCulture, $"  Business and Enterprise Edition Features Used: {features}");
+    sb.AppendLine(CultureInfo.InvariantCulture, $"  {usage.ClientsUsed.Count} Client Id(s) Used");
+    sb.AppendLine(CultureInfo.InvariantCulture, $"  {usage.IssuersUsed.Count} Issuer(s) Used");
+
+    return sb.ToString();
+}

@@ -270,3 +270,5 @@ tempkey.jwk
 
 # Skip others
 keys/
+Logs/
+

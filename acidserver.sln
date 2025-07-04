@@ -14,8 +14,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.ActiveCfg = DeliverToAliCloud|Any CPU
-		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.Build.0 = DeliverToAliCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.ActiveCfg = DeliverToCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.Build.0 = DeliverToCloud|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

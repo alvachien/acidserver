@@ -1,198 +1,155 @@
-﻿using Duende.IdentityServer.Models;
-using Duende.IdentityServer.Test;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
+using Duende.IdentityServer.Models;
 using static Duende.IdentityServer.IdentityServerConstants;
 
-namespace WebApplication1
+namespace IdentityServerAspNetIdentity;
+
+public static class Config
 {
-    public class Config
-    {
-        public static IEnumerable<IdentityResource> IdentityResources =>
-            new List<IdentityResource>
+    public static IEnumerable<IdentityResource> IdentityResources =>
+        new IdentityResource[]
+        {
+            new IdentityResources.OpenId(),
+            new IdentityResources.Profile(),
+            new IdentityResources.Email(),
+        };
+
+    public static IEnumerable<ApiScope> ApiScopes =>
+        new ApiScope[]
+        {
+                new ApiScope("api.hih", "HIH API"),
+                new ApiScope("api.acgallery", "Gallery API"),
+                new ApiScope("api.knowledgebuilder", "Knowledge Builder API")
+        };
+
+    public static IEnumerable<Client> Clients =>
+        new Client[]
+        {
+            new Client
             {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResources.Email()
-            };
+                ClientName = "AC HIH App",
+                ClientId = "achihui.js",
+                AllowedGrantTypes = GrantTypes.Code,
 
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new List<ApiScope>
+                RequireClientSecret = false,
+                RequirePkce = true,
+
+                AccessTokenLifetime = 3600, // 3600 seconds
+                AllowAccessTokensViaBrowser = true,
+                AllowOfflineAccess = true, // For refresh token
+
+                RequireConsent = false,
+                RefreshTokenUsage = TokenUsage.OneTimeOnly,
+
+                RedirectUris = {
+#if DEBUG
+#if USE_ALIYUN
+                    "https://www.alvachien.com/hih/signin-callback"
+#else
+                    "https://localhost:29528/signin-callback"
+#endif
+#endif
+                },
+                PostLogoutRedirectUris = {
+#if DEBUG
+#if USE_ALIYUN
+                    "https://www.alvachien.com/hih"
+#else
+                    "https://localhost:29528"
+#endif
+#endif
+                },
+                AllowedScopes = {
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile,
+                    StandardScopes.Email,
+                    StandardScopes.OfflineAccess,
+                    "api.hih"
+                },
+                AlwaysIncludeUserClaimsInIdToken = true
+            },
+
+            new Client
             {
-                 new ApiScope("api.hih", "HIH API"),
-                 new ApiScope("api.acgallery", "Gallery API"),
-                 new ApiScope("api.knowledgebuilder", "Knowledge Builder API")
-            };
+                ClientName = "AC Photo Gallery",
+                ClientId = "acgallery.app",
+                
+                //AllowedGrantTypes = GrantTypes.Implicit,
+                AllowedGrantTypes = GrantTypes.Code,
+                RequireClientSecret = false,
+                RequirePkce = true,
 
-        public static IEnumerable<Client> Clients => new List<Client>
+                AllowAccessTokensViaBrowser = true,
+                AllowOfflineAccess = true, // For refresh token
+
+                AlwaysIncludeUserClaimsInIdToken = true,
+                RefreshTokenUsage = TokenUsage.OneTimeOnly,
+
+                RequireConsent = false,
+                RedirectUris = {
+#if USE_ALIYUN
+                   "https://www.alvachien.com/gallery/signin-callback"
+#else
+                   "https://localhost:16001/signin-callback"
+#endif
+                },
+                PostLogoutRedirectUris = {
+#if USE_ALIYUN
+                   "https://www.alvachien.com/gallery"
+#else
+                   "https://localhost:16001"
+#endif
+                },
+                AllowedScopes = {
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile,
+                    StandardScopes.OfflineAccess,
+                    StandardScopes.Email,
+                    "api.acgallery"
+                },
+                AccessTokenLifetime = 3600
+            },
+
+            new Client
             {
-                new Client
-                {
-                    ClientName = "AC HIH App",
-                    ClientId = "achihui.js",
-                    AllowedGrantTypes = GrantTypes.Code,
+                ClientName = "Knowledge Builder",
+                ClientId = "knowledgebuilder.js",
 
-                    RequireClientSecret = false,
-                    RequirePkce = true,
+                //AllowedGrantTypes = GrantTypes.Implicit,
+                AllowedGrantTypes = GrantTypes.Code,
+                RequireClientSecret = false,
+                RequirePkce = true,
 
-                    AccessTokenLifetime = 900, // 900 seconds
-                    AllowAccessTokensViaBrowser = true,
-                    AllowOfflineAccess = true, // For refresh token
+                AllowAccessTokensViaBrowser = true,
+                AllowOfflineAccess = true, // For refresh token
+                AlwaysIncludeUserClaimsInIdToken = true,
+                RefreshTokenUsage=TokenUsage.OneTimeOnly,
 
-                    RequireConsent = false,
-                    //AlwaysIncludeUserClaimsInIdToken = true,
-                    RefreshTokenUsage=TokenUsage.OneTimeOnly,
-
-                    RedirectUris = new List<String>
-                    {
-#if DELIVERTOALICLOUD
-                        "https://www.alvachien.com/hih"
+                RequireConsent = false,
+                RedirectUris = {
+#if USE_ALIYUN
+                    "https://www.alvachien.com/learning/signin-callback"
 #else
-                        "http://localhost:29521",
-                        "https://localhost:29521",
-                        "https://localhost:29528"
+                    "https://localhost:44367/signin-callback",
+                    "http://localhost:44367/signin-callback"
 #endif
-                    },
-                    PostLogoutRedirectUris = new List<string>
-                    {
-#if DELIVERTOALICLOUD
-                        "https://www.alvachien.com/hih"
-#else
-                        "http://localhost:29521",
-                        "https://localhost:29521",
-                        "https://localhost:29528"
-#endif
-                    },
-                    AllowedScopes = new List<String>
-                    {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        StandardScopes.Email,
-                        StandardScopes.OfflineAccess,
-                        "api.hih"
-                    }
                 },
-                new Client
-                {
-                    ClientName = "AC Photo Gallery",
-                    ClientId = "acgallery.app",
-                    //AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequireClientSecret = false,
-                    RequirePkce = true,
-
-                    AllowAccessTokensViaBrowser = true,
-                    AllowOfflineAccess = true, // For refresh token
-
-                    //AlwaysIncludeUserClaimsInIdToken = true,
-                    RefreshTokenUsage=TokenUsage.OneTimeOnly,
-
-                    RequireConsent = false,
-                    RedirectUris = new List<String>
-                    {
-#if DELIVERTOALICLOUD
-                        "https://www.alvachien.com/gallery"
+                PostLogoutRedirectUris = {
+#if USE_ALIYUN
+                    "https://www.alvachien.com/learning"
 #else
-                        "https://localhost:16001"
+                    "https://localhost:44367",
+                    "http://localhost:44367"
 #endif
-                    },
-                    PostLogoutRedirectUris = new List<string>
-                    {
-#if DELIVERTOALICLOUD
-                        "https://www.alvachien.com/gallery"
-#else
-                        "https://localhost:16001"
-#endif
-                    },
-                    AllowedScopes = new List<string>
-                    {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        StandardScopes.OfflineAccess,
-                        StandardScopes.Email,
-                        "api.acgallery"
-                    },
-                    AccessTokenLifetime = 3600
                 },
-                new Client
-                {
-                    ClientName = "Knowledge Builder",
-                    ClientId = "knowledgebuilder.js",
-                    //AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequireClientSecret = false,
-                    RequirePkce = true,
-
-                    AllowAccessTokensViaBrowser = true,
-                    AllowOfflineAccess = true, // For refresh token
-                    //AlwaysIncludeUserClaimsInIdToken = true,
-                    RefreshTokenUsage=TokenUsage.OneTimeOnly,
-
-                    RequireConsent = false,
-                    RedirectUris = new List<String>
-                    {
-#if DELIVERTOALICLOUD
-                        "https://www.alvachien.com/math"
-#else
-                        "https://localhost:44367",
-                        "http://localhost:44367"
-#endif
-                    },
-                    PostLogoutRedirectUris = new List<string>
-                    {
-#if DELIVERTOALICLOUD
-                        "https://www.alvachien.com/math"
-#else
-                        "https://localhost:44367",
-                        "http://localhost:44367"
-#endif
-                    },
-                    AllowedScopes = new List<String>
-                    {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        StandardScopes.Email,
-                        StandardScopes.OfflineAccess,
-                        "api.knowledgebuilder"
-                   },
-                    AccessTokenLifetime = 3600
-#if DELIVERTOALICLOUD
-#else 
+                
+                AllowedScopes = {
+                    StandardScopes.OpenId,
+                    StandardScopes.Profile,
+                    StandardScopes.Email,
+                    StandardScopes.OfflineAccess,
+                    "api.knowledgebuilder"
                 },
-                new Client
-                {
-                    ClientId = "Postman",
-                    ClientName = "Postman client",
-                    // AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
-                    RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
-                    // RedirectUris = { "https://oauth.pstmn.io/v1/callback" },
-                    PostLogoutRedirectUris = { "https://www.getpostman.com" },
-                    AllowedCorsOrigins = { "https://www.getpostman.com" },
-                    EnableLocalLogin = true,
-
-                    AllowedGrantTypes = new []
-                    {
-                        GrantType.ResourceOwnerPassword
-                    },
-                    ClientSecrets = { new Secret("Postman".Sha256()) },
-                    ClientUri = null,
-                    AllowOfflineAccess = true,
-                    Enabled = true,
-                    AllowedScopes = new []
-                    {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        StandardScopes.Email,
-                        // StandardScopes.OfflineAccess,
-                        "api.acquiz",
-                        "api.acgallery",
-                        "api.hih",
-                        "api.knowledge"
-                    }
-#endif
-                }
-        };        
-    }
+                AccessTokenLifetime = 3600
+            }
+        };
 }
