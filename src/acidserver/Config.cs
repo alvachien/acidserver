@@ -31,7 +31,8 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RequireClientSecret = false,
-                RequirePkce = true,
+                //RequirePkce = true,
+                RequirePkce = false,
 
                 AccessTokenLifetime = 3600, // 3600 seconds
                 AllowAccessTokensViaBrowser = true,
