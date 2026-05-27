@@ -5,22 +5,67 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "acidserver", "src\acidserver\acidserver.csproj", "{FDE8270A-652C-453E-A1C1-A1CC066F4B46}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "acidserver.Tests", "tests\acidserver.Tests\acidserver.Tests.csproj", "{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Aliyun Release|Any CPU = Aliyun Release|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		DeliverToAliCloud|Any CPU = DeliverToAliCloud|Any CPU
+		DeliverToAliCloud|x64 = DeliverToAliCloud|x64
+		DeliverToAliCloud|x86 = DeliverToAliCloud|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Aliyun Release|Any CPU.ActiveCfg = Aliyun Release|Any CPU
-		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Aliyun Release|Any CPU.Build.0 = Aliyun Release|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|x64.Build.0 = Debug|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Debug|x86.Build.0 = Debug|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.ActiveCfg = DeliverToCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|Any CPU.Build.0 = DeliverToCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|x64.ActiveCfg = DeliverToAliCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|x64.Build.0 = DeliverToAliCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|x86.ActiveCfg = DeliverToAliCloud|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.DeliverToAliCloud|x86.Build.0 = DeliverToAliCloud|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|x64.ActiveCfg = Release|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|x64.Build.0 = Release|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|x86.ActiveCfg = Release|Any CPU
+		{FDE8270A-652C-453E-A1C1-A1CC066F4B46}.Release|x86.Build.0 = Release|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Debug|x64.Build.0 = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Debug|x86.Build.0 = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.DeliverToAliCloud|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.DeliverToAliCloud|Any CPU.Build.0 = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.DeliverToAliCloud|x64.ActiveCfg = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.DeliverToAliCloud|x64.Build.0 = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.DeliverToAliCloud|x86.ActiveCfg = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.DeliverToAliCloud|x86.Build.0 = Debug|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Release|x64.ActiveCfg = Release|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Release|x64.Build.0 = Release|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Release|x86.ActiveCfg = Release|Any CPU
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DE40DF2A-AED8-4B9C-8225-6DF3FD9ABF0E} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3977F91A-A045-4902-8EC8-E8A572F69E07}
