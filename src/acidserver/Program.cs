@@ -3,6 +3,8 @@ using System.Globalization;
 using System.Text;
 using Duende.IdentityServer.Licensing;
 using IdentityServerAspNetIdentity;
+using IdentityServerAspNetIdentity.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 // The initial "bootstrap" logger is able to log errors during start-up. It's completely replaced by the
@@ -29,14 +31,11 @@ try
         .ConfigureServices()
         .ConfigurePipeline();
 
-    // this seeding is only for the template to bootstrap the DB and users.
-    // in production you will likely want a different approach.
-    if (args.Contains("/seed"))
+    // Ensure database is created on startup (no user seeding)
+    using (var scope = app.Services.CreateScope())
     {
-        //Log.Information("Seeding database...");
-        SeedData.EnsureSeedData(app);
-        //Log.Information("Done seeding database. Exiting.");
-        return;
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.EnsureCreated();
     }
 
     if (app.Environment.IsDevelopment())
