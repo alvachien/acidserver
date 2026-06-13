@@ -4,7 +4,7 @@ Identity and authentication server for the HIH ecosystem and related application
 
 acidserver issues JWT access tokens via OpenID Connect (OIDC) to three client applications and protects access to their corresponding APIs.
 
-## Role in the monorepo
+## Related projects
 
 acidserver is the first service that must be running — both `achihapi` (the OData API) and `achihui` (the Angular front-end) depend on it for authentication.
 
@@ -13,7 +13,7 @@ acidserver  →  achihapi  →  achihui
 (ID server)    (OData API)   (Angular UI)
 ```
 
-Use the root [`start-all.ps1`](../start-all.ps1) script to launch all three services in order.
+These are **three separate GitHub repositories** ([acidserver](https://github.com/alvachien/acidserver), [achihapi](https://github.com/alvachien/achihapi), [achihui](https://github.com/alvachien/achihui)) grouped together in a single local directory for development convenience. Each project is built, tested, and deployed independently.
 
 ## Tech stack
 
@@ -131,15 +131,6 @@ dotnet run --project src/acidserver/acidserver.csproj
 The server starts at **`https://localhost:7228`** (configured in `launchSettings.json`).
 
 On first startup, `Database.EnsureCreated()` creates the SQLite database (`acidserver.db`) automatically — no manual migration steps are required.
-
-### Run the full stack
-
-From the repository root:
-
-```powershell
-.\start-all.ps1              # fail if any port is occupied
-.\start-all.ps1 -ForceKill   # kill whatever is on the port first
-```
 
 ## Test
 
