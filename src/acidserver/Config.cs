@@ -13,47 +13,55 @@ public static class Config
             new IdentityResources.Email(),
         };
 
+    public static IEnumerable<ApiResource> ApiResources =>
+        new ApiResource[]
+        {
+            new ApiResource("api.hih", "HIH API")
+            {
+                UserClaims = { "name" }
+            },
+            new ApiResource("api.acgallery", "Gallery API")
+            {
+                UserClaims = { "name" }
+            },
+            new ApiResource("api.knowledgebuilder", "Knowledge Builder API")
+            {
+                UserClaims = { "name" }
+            }
+        };
+
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-                new ApiScope("api.hih", "HIH API"),
-                new ApiScope("api.acgallery", "Gallery API"),
-                new ApiScope("api.knowledgebuilder", "Knowledge Builder API")
+            new ApiScope("api.hih", "HIH API"),
+            new ApiScope("api.acgallery", "Gallery API"),
+            new ApiScope("api.knowledgebuilder", "Knowledge Builder API")
         };
 
-    public static IEnumerable<Client> Clients =>
-        new Client[]
+    public static IEnumerable<Client> GetClients(IReadOnlyList<ClientConfig> configClients)
+    {
+        var clientMap = configClients.ToDictionary(c => c.ClientId);
+
+        var achihui = clientMap["achihui.js"];
+        var acgallery = clientMap["acgallery.app"];
+        var kb = clientMap["knowledgebuilder.js"];
+
+        return new Client[]
         {
             new Client
             {
                 ClientName = "AC HIH App",
-                ClientId = "achihui.js",
+                ClientId = achihui.ClientId,
                 AllowedGrantTypes = GrantTypes.Code,
-
                 RequireClientSecret = false,
                 RequirePkce = true,
-
                 AccessTokenLifetime = 3600, // 3600 seconds
                 AllowAccessTokensViaBrowser = true,
                 AllowOfflineAccess = true, // For refresh token
-
                 RequireConsent = false,
                 RefreshTokenUsage = TokenUsage.OneTimeOnly,
-
-                RedirectUris = {
-#if USE_ALIYUN
-                    "https://www.alvachien.com/hih/signin-callback"
-#else
-                    "https://localhost:29528/signin-callback"
-#endif
-                },
-                PostLogoutRedirectUris = {
-#if USE_ALIYUN
-                    "https://www.alvachien.com/hih"
-#else
-                    "https://localhost:29528"
-#endif
-                },
+                RedirectUris = achihui.RedirectUris.ToList(),
+                PostLogoutRedirectUris = achihui.PostLogoutRedirectUris.ToList(),
                 AllowedScopes = {
                     StandardScopes.OpenId,
                     StandardScopes.Profile,
@@ -67,34 +75,17 @@ public static class Config
             new Client
             {
                 ClientName = "AC Photo Gallery",
-                ClientId = "acgallery.app",
-                
-                //AllowedGrantTypes = GrantTypes.Implicit,
+                ClientId = acgallery.ClientId,
                 AllowedGrantTypes = GrantTypes.Code,
                 RequireClientSecret = false,
                 RequirePkce = true,
-
                 AllowAccessTokensViaBrowser = true,
                 AllowOfflineAccess = true, // For refresh token
-
                 AlwaysIncludeUserClaimsInIdToken = true,
                 RefreshTokenUsage = TokenUsage.OneTimeOnly,
-
                 RequireConsent = false,
-                RedirectUris = {
-#if USE_ALIYUN
-                   "https://www.alvachien.com/gallery/signin-callback"
-#else
-                   "https://localhost:16001/signin-callback"
-#endif
-                },
-                PostLogoutRedirectUris = {
-#if USE_ALIYUN
-                   "https://www.alvachien.com/gallery"
-#else
-                   "https://localhost:16001"
-#endif
-                },
+                RedirectUris = acgallery.RedirectUris.ToList(),
+                PostLogoutRedirectUris = acgallery.PostLogoutRedirectUris.ToList(),
                 AllowedScopes = {
                     StandardScopes.OpenId,
                     StandardScopes.Profile,
@@ -108,34 +99,17 @@ public static class Config
             new Client
             {
                 ClientName = "Knowledge Builder",
-                ClientId = "knowledgebuilder.js",
-
-                //AllowedGrantTypes = GrantTypes.Implicit,
+                ClientId = kb.ClientId,
                 AllowedGrantTypes = GrantTypes.Code,
                 RequireClientSecret = false,
                 RequirePkce = true,
-
                 AllowAccessTokensViaBrowser = true,
                 AllowOfflineAccess = true, // For refresh token
                 AlwaysIncludeUserClaimsInIdToken = true,
-                RefreshTokenUsage=TokenUsage.OneTimeOnly,
-
+                RefreshTokenUsage = TokenUsage.OneTimeOnly,
                 RequireConsent = false,
-                RedirectUris = {
-#if USE_ALIYUN
-                    "https://www.alvachien.com/learning/signin-callback"
-#else
-                    "https://localhost:44367/signin-callback"
-#endif
-                },
-                PostLogoutRedirectUris = {
-#if USE_ALIYUN
-                    "https://www.alvachien.com/learning"
-#else
-                    "https://localhost:44367"
-#endif
-                },
-                
+                RedirectUris = kb.RedirectUris.ToList(),
+                PostLogoutRedirectUris = kb.PostLogoutRedirectUris.ToList(),
                 AllowedScopes = {
                     StandardScopes.OpenId,
                     StandardScopes.Profile,
@@ -146,4 +120,5 @@ public static class Config
                 AccessTokenLifetime = 3600
             }
         };
+    }
 }

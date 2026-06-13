@@ -1,4 +1,5 @@
 using Duende.IdentityServer;
+using Duende.IdentityServer.Services;
 using IdentityServerAspNetIdentity.Data;
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,10 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        builder.Services.AddTransient<IProfileService, ProfileService>();
+
+        var acidConfig = builder.Configuration.GetSection("AcidServer").Get<AcidServerConfig>() ?? new AcidServerConfig();
+
         builder.Services.AddCors();
 
         builder.Services
@@ -31,11 +36,11 @@ internal static class HostingExtensions
                 options.Events.RaiseSuccessEvents = true;
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
+            .AddInMemoryApiResources(Config.ApiResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients)
+            .AddInMemoryClients(Config.GetClients(acidConfig.Clients))
             .AddAspNetIdentity<ApplicationUser>()
             .AddLicenseSummary();
-
 
         builder.Services.AddAuthentication();
 
@@ -51,28 +56,14 @@ internal static class HostingExtensions
             app.UseDeveloperExceptionPage();
         }
 
+        var corsOrigins = app.Configuration.GetSection("AcidServer:AllowedCorsOrigins").Get<string[]>() ?? [];
+
         app.UseCors(option =>
         {
-            option.WithOrigins(
-#if USE_ALIYUN
-                    "https://www.alvachien.com/hih", // HIH UI
-                    "https://www.alvachien.com/gallery", // Gallery
-                    "https://www.alvachien.com/math", // Math exercise
-                    "https://www.alvachien.com/hihapi", // HIH API
-                    "https://www.alvachien.com/galleryapi", // Gallery API
-                    "https://www.alvachien.com/quizapi" // Quiz API
-#else
-                    "https://localhost:16001", // AC gallery
-                    "https://localhost:29521", // AC HIH UI
-                    "https://localhost:29528",  // AC HIH App
-                    "https://localhost:44366", // AC HIH API
-                    "https://localhost:25325", // AC Gallery API
-                    "https://localhost:44367"    // Knowledge builder
-#endif
-                    )
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+            option.WithOrigins(corsOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 
         app.UseStaticFiles();

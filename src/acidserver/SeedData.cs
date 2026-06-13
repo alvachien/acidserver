@@ -15,7 +15,9 @@ public class SeedData
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
+            Log.Information("Ensuring database created...");
+            context.Database.EnsureCreated();
+            Log.Information("Database ready at: {Connection}", context.Database.GetDbConnection().ConnectionString);
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var alice = userMgr.FindByNameAsync("alice").Result;

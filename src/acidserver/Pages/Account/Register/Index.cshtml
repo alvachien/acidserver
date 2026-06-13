@@ -1,0 +1,60 @@
+@page
+@model IdentityServerAspNetIdentity.Pages.Register.Index
+
+<div class="register-page">
+    <div class="lead">
+        <h1>Create Account</h1>
+        <p>Fill in the details below to register a new account</p>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        <div class="alert alert-success">
+            @Model.SuccessMessage
+            <a asp-page="/Account/Login/Index" asp-route-returnUrl="@Model.ReturnUrl" class="alert-link">Click here to login</a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Registration</h2>
+                    </div>
+
+                    <div class="card-body">
+                        <form asp-page="/Account/Register/Index">
+                            <input type="hidden" asp-for="ReturnUrl" />
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Username"></label>
+                                <input class="form-control" placeholder="Username" asp-for="Input.Username" autofocus>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Email"></label>
+                                <input class="form-control" placeholder="Email" type="email" asp-for="Input.Email">
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Password"></label>
+                                <input type="password" class="form-control" placeholder="Password" asp-for="Input.Password" autocomplete="new-password">
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.ConfirmPassword"></label>
+                                <input type="password" class="form-control" placeholder="Confirm Password" asp-for="Input.ConfirmPassword" autocomplete="new-password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Register</button>
+                            <a class="btn btn-secondary" asp-page="/Account/Login/Index" asp-route-returnUrl="@Model.ReturnUrl">Back to Login</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
